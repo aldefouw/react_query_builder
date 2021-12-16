@@ -1,0 +1,29 @@
+<div class="row px-1 py-2 m-1">
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    <h4> <%= title %> </h4>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="btn-group float-right" role="group">
+      <%= link_to 'New Query +', new_query_builder_path(query_type: path.parameterize), method: :get, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>
+<div class="row px-1 m-1">
+  <table class="table table-sm table-bordered">
+    <thead class="thead-light">
+    <tr>
+      <th style="width: 25%">Title</th>
+      <th style="width: 35%">Description</th>
+      <th style="width: 15%">Last Run</th>
+      <th style="width: 8%">User</th>
+      <th style="width: 15%">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @queries.where(query_type: path).each do |q| %>
+      <%= saved_query_index_table_row(q) %>
+    <% end %>
+    <% %>
+    </tbody>
+  </table>
+</div>

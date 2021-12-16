@@ -1,0 +1,13 @@
+{
+  "name": "react_query_builder",
+  "private": true,
+  "dependencies": {},
+  "engines": {
+    "node": "10.x"
+  },
+  "devDependencies": {
+    "add": "^2.0.6",
+    "webpack-cli": "^2.1.5",
+    "webpack-dev-server": "^2.11.5"
+  }
+}

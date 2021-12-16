@@ -1,0 +1,14 @@
+<div class="card-header">
+  <h3><%= @report.title %></h3>
+</div>
+<div class="card-body">
+  <h5>Name: <%= @query.title %>&nbsp;</h5>
+  <p>Description: <%= @query.description %></p>
+  <p><%= link_to "Edit Report", edit_query_builder_path(id: @query.id), class: "btn btn-info" %></p>
+</div>
+<%= search_form_for(@search, @path) do |f| %>
+  <input type="hidden" id="query_type" name="query_type" value="<%= @query.query_type %>">
+  <input type="hidden" id="q" name="q" value="<%= @query.q %>">
+  <input type="hidden" id="display_fields" name="display_fields" value="<%= @query.display_fields %>">
+  <%= render 'run_query', f: f %>
+<% end %>

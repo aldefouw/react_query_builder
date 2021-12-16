@@ -1,0 +1,26 @@
+<%
+Ransack::Helpers::FormBuilder.module_eval do
+  def dropdown_attributes(labels, options, html_options)
+    template_collection_select(:name, labels, options, html_options)
+  end
+end
+%>
+
+<%= tag.div f.dropdown_attributes(@report.labels,
+                                  {
+                                      class: 'form-control form-control-sm qb-attr-select',
+                                      id: 'qb-attribute-select'
+                                  },
+            {
+                class: 'col-sm-4 col-md-4 col-lg-4 qb-attributes',
+                'data-object-name': f.object_name,
+                'data-type': f.class,
+                escape_attributes: false
+            }) %>
+      
+<script>
+  $(".qb-attr-select").chosen();
+</script>
+
+
+

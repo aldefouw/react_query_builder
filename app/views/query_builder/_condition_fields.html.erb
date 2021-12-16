@@ -1,0 +1,24 @@
+  <%= tag.fieldset class: condition_fields, 'data-object-name': f.object_name do %>
+    <div class="row">
+
+      <%= f.attribute_fields do |a| %>
+        <%= render 'attribute_fields', f: a %>
+      <% end %>
+
+      <%= tag.div f.predicate_select({only: app_predicates, compounds: false}, {class: 'qb-predicate-select form-control form-control-sm', id: 'qb-predicates', 'data-placeholder': ""}), class: 'col-sm-3 col-md-3 col-lg-3' %>
+
+      <%= f.value_fields do |v| %>
+        <%= render 'value_fields', f: v %>
+      <% end %>
+
+      <%= button_to_remove_fields %>
+    </div>
+
+  <% end %>
+
+<script>
+  $(".qb-predicate-select").chosen({ disable_search: "true", width: "95%" });
+</script>
+
+
+
