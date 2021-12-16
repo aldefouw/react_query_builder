@@ -49,8 +49,8 @@ function ReactTables () {
 
                 if (table){
                     const selected_table = ReactDOM.render(<NewQueryTable cols={columns_data}/>, table);
-                    //const excel_button =  ReactDOM.render(<DownloadExcelQueryResultButton cols={columns_data} report={excel_data['report']} />, download_excel);
-                    //const csv_button =  ReactDOM.render(<DownloadQueryResultButton report={csv_data['report']} />, download_csv);
+                    const excel_button =  ReactDOM.render(<DownloadExcelQueryResultButton cols={columns_data} report={excel_data['report']} />, download_excel);
+                    const csv_button =  ReactDOM.render(<DownloadQueryResultButton report={csv_data['report']} />, download_csv);
 
                     const queryData = new FormData();
                     queryData.append('query_type', query_type);
@@ -68,8 +68,8 @@ function ReactTables () {
                     }).then(function (response) {
 
                         selected_table.lazyLoadData(response.data);
-                        //excel_button.lazyLoadData(response.data, excel_data['cols'], columns_data);
-                        //csv_button.lazyLoadData(response.data, csv_data['cols'], columns_data);
+                        excel_button.lazyLoadData(response.data, excel_data['cols'], columns_data);
+                        csv_button.lazyLoadData(response.data, csv_data['cols'], columns_data);
 
                     }).catch(function (error) {
                         console.log(error);

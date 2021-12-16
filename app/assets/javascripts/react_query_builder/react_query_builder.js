@@ -30,8 +30,11 @@ ReactQueryBuilder.enable = function() {
     //Search Functionality
     Search()
 
+    console.log('Search Enabled')
+
     //Display Fields / Hide Fields for Queries
     QueryFieldMappings()
+    console.log('Query Field Mappings')
 
     // ==== REACT TABLE INITIALIZER ==== //
     const react_tables = new ReactTables();
