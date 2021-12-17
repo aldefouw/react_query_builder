@@ -1,7 +1,7 @@
 <%
 Ransack::Helpers::FormBuilder.module_eval do
   def dropdown_attributes(labels, options, html_options)
-    template_collection_select(:name, labels, options, html_options)
+    template_collection_select(:name, labels, html_options, options)
   end
 end
 %>
@@ -21,6 +21,3 @@ end
 <script>
   $(".qb-attr-select").chosen();
 </script>
-
-
-
