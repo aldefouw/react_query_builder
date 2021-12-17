@@ -1,8 +1,9 @@
 // ReactQueryBuilder Javascript
+//= require jquery
+//= require jquery-ui
 //= require axios
 //= require moment/moment
-
-//= require jquery
+//= require chosen-js
 
 //= require react
 //= require react-table/react-table
@@ -41,6 +42,11 @@ ReactQueryBuilder.enable = function() {
     //Display Fields / Hide Fields for Queries
     QueryFieldMappings()
     console.log('Query Field Mappings')
+
+    //Add Chosen Sortable to the Display Fields
+    const chosen = new AddChosen();
+    let klasses = ['chosen', 'chosen-select'];
+    chosen.enable(klasses);
 
     // ==== REACT TABLE INITIALIZER ==== //
     const react_tables = new ReactTables();
