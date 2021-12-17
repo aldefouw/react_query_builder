@@ -46,6 +46,6 @@ ReactQueryBuilder.enable = function() {
     // ==== REACT TABLE INITIALIZER ==== //
     const react_tables = new ReactTables();
     react_tables.initialize();
-    console.log('Chosen to Display Fields')
+    console.log('Chosen to ReactTable to display querying results')
 
 };
