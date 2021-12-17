@@ -29,27 +29,23 @@
 // https://robots.thoughtbot.com/module-pattern-in-javascript-and-coffeescript
 window.ReactQueryBuilder = {};
 
-
 ReactQueryBuilder.enable = function() {
 
     console.log('React Query Builder Enabled')
 
-    //Search Functionality
-    Search()
-
-    console.log('Search Enabled')
-
-    //Display Fields / Hide Fields for Queries
+    // ==== SHOW / HIDE QUERY FIELD MAPPINGS ==== //
     QueryFieldMappings()
     console.log('Query Field Mappings')
 
-    //Add Chosen Sortable to the Display Fields
+    // ==== CHOSEN SORTABLE OPTIONS FOR DISPLAY FIELDS ==== //
     const chosen = new AddChosen();
     let klasses = ['chosen', 'chosen-select'];
     chosen.enable(klasses);
+    console.log('Chosen to Display Fields')
 
     // ==== REACT TABLE INITIALIZER ==== //
     const react_tables = new ReactTables();
     react_tables.initialize();
+    console.log('Chosen to Display Fields')
 
 };

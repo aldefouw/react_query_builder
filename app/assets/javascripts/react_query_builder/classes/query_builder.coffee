@@ -18,4 +18,3 @@ class @Search
     template = template.replace(/new_object_name\[/g, object_name + "[")
     template = template.replace(/new_object_name_/, sanitized_object_name + '_')
     $(button).before(template.replace(id_regexp, new_id))
-

@@ -5,26 +5,6 @@ function ReactTables () {
         this.addQueryTable();
     };
 
-    this.initialize_table = (selector, obj) => {
-        const url = `${window.location.pathname}.json${window.location.search}`;
-        const table = document.getElementById(selector);
-        if (table){
-            const selected_table = ReactDOM.render(obj, table);
-            axios.get(url).then(res => { selected_table.lazyLoadData(res.data) });
-        }
-    };
-
-    this.addUsersTable = () => {
-        const roles = document.getElementById('user_management_table');
-
-        if(roles){
-            const roles_data = JSON.parse(roles.getAttribute('data'));
-            if(roles_data) {
-                this.initialize_table('user_management_table', <UsersTable roles={roles_data}/>);
-            }
-        }
-    };
-
     this.addQueryTable = () => {
 
         //Data Table
