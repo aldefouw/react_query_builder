@@ -2,8 +2,9 @@
 //= require axios
 //= require moment/moment
 
+//= require jquery
+
 //= require react
-//= require react_ujs
 //= require react-table/react-table
 //= require react-csv
 //= require xlsx
