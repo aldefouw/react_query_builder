@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
 	spec.add_runtime_dependency 'bootstrap', '~> 4.6'
 	spec.add_runtime_dependency 'sass-rails'
-
+	spec.add_runtime_dependency 'jquery-ui-rails'
 	spec.add_runtime_dependency 'react-rails', "~> 2.4"
 	spec.add_runtime_dependency 'ransack', "~> 2.4"
 	spec.add_runtime_dependency "jquery-rails"
