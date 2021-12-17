@@ -1,9 +1,14 @@
 // ReactQueryBuilder Javascript
 //= require axios
-//= require react
 //= require moment/moment
+
+//= require react
 //= require react_ujs
 //= require react-table/react-table
+//= require react-csv
+//= require xlsx
+
+//= require ./object_loader
 
 //= require_tree ./components
 //= require_tree ./classes
@@ -24,7 +29,7 @@ window.ReactQueryBuilder = {};
 
 
 ReactQueryBuilder.enable = function() {
-    
+
     console.log('React Query Builder Enabled')
 
     //Search Functionality

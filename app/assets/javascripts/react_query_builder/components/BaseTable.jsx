@@ -3,7 +3,7 @@ class BaseTable extends React.Component {
     constructor() {
         super()
 
-        window.ReactTable = window.ReactTable.default
+
 
         this.columns = []
 
