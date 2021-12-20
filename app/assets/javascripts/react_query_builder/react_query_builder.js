@@ -1,6 +1,7 @@
 // ReactQueryBuilder Javascript
 //= require jquery
 //= require jquery-ui
+//= require jquery_ujs
 //= require axios/dist/axios
 //= require moment/moment
 //= require chosen-js
