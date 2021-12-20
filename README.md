@@ -8,8 +8,6 @@
 
 
 ```
-
-
 gem 'react_query_builder'
 gem 'react-rails'
 gem 'bootstrap', "~> 4.1"
@@ -18,7 +16,12 @@ gem 'reform-rails', "~> 0.1"
 gem 'chosen-rails', "~> 1.9"
 gem 'simple_form'
 gem 'jquery-ui-rails', '~> 6.0'
+```
 
+Add to top of your app if needed
+```
+//= require jquery
+//= require jquery_ujs
 ```
 
 
