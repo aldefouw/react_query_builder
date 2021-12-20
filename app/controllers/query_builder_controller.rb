@@ -141,7 +141,7 @@ class QueryBuilderController < ApplicationController
 		@run_query = run_query
 		@data = @search.result(distinct: true) if include_data
 
-		render 'query_form', layout: 'query_builder' if render
+		render 'query_form' if render
 	end
 
 	def form_path

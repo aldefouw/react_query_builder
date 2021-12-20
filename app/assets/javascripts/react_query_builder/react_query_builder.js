@@ -1,7 +1,5 @@
 // ReactQueryBuilder Javascript
-//= require jquery
 //= require jquery-ui
-//= require jquery_ujs
 
 // AJAX requests
 //= require axios/dist/axios
@@ -10,7 +8,7 @@
 //= require moment/moment
 
 // Type-ahead functionality
-//= require chosen-js
+//= require chosen-js/chosen.jquery
 
 // For Tool Tips
 //= require popper
