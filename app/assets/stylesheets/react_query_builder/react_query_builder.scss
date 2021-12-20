@@ -1,12 +1,21 @@
 /*
  *= require_tree ./react
  *= require react-table/react-table
+ *= require react_query_builder/font-awesome/css/all
  */
+@import "font-awesome/css/all.min";
+
 @import "bootstrap";
 @import "bootstrap_mods/bootstrap-chosen";
 @import "bootstrap_mods/bootstrap-modals";
+
+@import "simple_form-bootstrap/form_abbr";
+@import "simple_form-bootstrap/form_collection_label";
+@import "simple_form-bootstrap/form_custom_checkbox_switch";
+@import "simple_form-bootstrap/form_floating_labels";
+@import "simple_form-bootstrap/form_multi_select";
+@import "simple_form-bootstrap/simple_form-bootstrap";
 @import "simple_form-bootstrap/overrides";
-@import "font-awesome/css/all.min";
 
 /* INDEX TABLES */
 
