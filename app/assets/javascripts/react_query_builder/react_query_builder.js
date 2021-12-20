@@ -2,15 +2,29 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+
+// AJAX requests
 //= require axios/dist/axios
+
+// Handle dates gracefully
 //= require moment/moment
+
+// Type-ahead functionality
 //= require chosen-js
 
+// For Tool Tips
+//= require popper
+//= require bootstrap
+
+// React Table Dependencies
 //= require react
 //= require react-table/react-table
 //= require react-csv
+
+// Downloading XLS files on the fly
 //= require xlsx
 
+// A place to make modifications to how React components are loaded
 //= require ./object_loader
 
 //= require_tree ./components
