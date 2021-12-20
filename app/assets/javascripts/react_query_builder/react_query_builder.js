@@ -18,16 +18,16 @@
 // Add this method within your initialization block:
 // Vanilla:
 // document.addEventListener("DOMContentLoaded", function(event) {
-//   ReactQueryBuilder.enable();
+//   ReactQueryBuilder.enable()
 
 // Turbolinks:
 // document.addEventListener("turbolinks:load", function(event) {
-//   ReactQueryBuilder.enable();
+//   ReactQueryBuilder.enable()
 
 
 // ReactQueryBuilder Namespace
 // https://robots.thoughtbot.com/module-pattern-in-javascript-and-coffeescript
-window.ReactQueryBuilder = {};
+window.ReactQueryBuilder = {}
 
 ReactQueryBuilder.enable = function() {
 
@@ -37,15 +37,15 @@ ReactQueryBuilder.enable = function() {
     QueryFieldMappings()
     console.log('Query Field Mappings')
 
-    // ==== CHOSEN SORTABLE OPTIONS FOR DISPLAY FIELDS ==== //
-    const chosen = new AddChosen();
-    let klasses = ['chosen', 'chosen-select'];
-    chosen.enable(klasses);
-    console.log('Chosen to Display Fields')
-
-    // ==== REACT TABLE INITIALIZER ==== //
-    const react_tables = new ReactTables();
-    react_tables.initialize();
+    // ==== RESULTS TABLE INITIALIZER ==== //
+    const results = new ResultTable()
+    results.initialize()
     console.log('Chosen to ReactTable to display querying results')
 
-};
+    // ==== CHOSEN SORTABLE OPTIONS FOR DISPLAY FIELDS ==== //
+    const chosen = new AddChosen()
+    let klasses = ['chosen', 'chosen-select']
+    chosen.enable(klasses)
+    console.log('Chosen to Display Fields')
+
+}
