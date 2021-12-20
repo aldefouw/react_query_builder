@@ -1,38 +1,38 @@
 class DownloadQueryResultButton extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loading: true,
       rows: []
-    };
+    }
   }
 
   lazyLoadData(data, cols, mappings){
 
-    const rows = [];
+    const rows = []
 
     if(data !== undefined) {
       data.map(function (v) {
-        let a = {};
+        let a = {}
         for (const s of cols) {
           const cur_obj = mappings.find(o => o.accessor === s)
-          const header = cur_obj['Header'];
+          const header = cur_obj['Header']
           a[header] = v[s]
         }
-        rows.push(a);
-      });
+        rows.push(a)
+      })
     }
 
-    this.setState({ rows: rows, loading: false });
+    this.setState({ rows: rows, loading: false })
   }
 
   render () {
-    const { rows, loading } = this.state;
+    const { rows, loading } = this.state
 
     if(loading){
       return <div className="spinner-border text-dark ml-2 mr-2" role="status">
         <span className="sr-only">Loading...</span>
-      </div>;
+      </div>
     } else {
       return (
           <CSVLink data={rows}
@@ -41,7 +41,7 @@ class DownloadQueryResultButton extends React.Component {
                    target="_blank">
             <i className={"fa fa-file"} /> Export CSV
           </CSVLink>
-      );
+      )
     }
   }
 }

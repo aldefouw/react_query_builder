@@ -1,12 +1,12 @@
 class NewQueryTable extends BaseTable {
 
     constructor(props) {
-        super(props);
-        this.setColumns(props.cols);
+        super(props)
+        this.setColumns(props.cols)
 
-        this.match_date_time = new MatchDate('MM/DD/YYYY HH:mm:ss', 'YYYY-MM-DD HH:mm:ss +0000');
-        this.match_date = new MatchDate('MM/DD/YYYY', 'YYYY-MM-DD');
-        this.match_time = new MatchTime('HH:mm:ss', 'YYYY-MM-DD HH:mm:ss +0000');
+        this.match_date_time = new MatchDate('MM/DD/YYYY HH:mm:ss', 'YYYY-MM-DD HH:mm:ss +0000')
+        this.match_date = new MatchDate('MM/DD/YYYY', 'YYYY-MM-DD')
+        this.match_time = new MatchTime('HH:mm:ss', 'YYYY-MM-DD HH:mm:ss +0000')
     }
 
     setColumns(cols){
@@ -16,9 +16,9 @@ class NewQueryTable extends BaseTable {
             const baseColumn = {
                 Header: col.Header,
                 accessor: col.accessor
-            };
+            }
 
-            let cellExtensions = {};
+            let cellExtensions = {}
 
             if ( col.type === "datetime" ) {
                 cellExtensions = {
@@ -37,10 +37,10 @@ class NewQueryTable extends BaseTable {
                 }
             }
 
-            return Object.assign({}, baseColumn, cellExtensions);
+            return Object.assign({}, baseColumn, cellExtensions)
 
-        };
+        }
 
-        this.columns = this.columns.concat( cols.map( col => newColumn(col)) );
+        this.columns = this.columns.concat( cols.map( col => newColumn(col)) )
     }
 }

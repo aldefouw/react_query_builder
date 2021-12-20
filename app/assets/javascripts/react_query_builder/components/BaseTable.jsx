@@ -12,10 +12,10 @@ class BaseTable extends React.Component {
             loading: true
         }
 
-        this.match_timestamp = new MatchDate('MM/DD/YYYY h:mmA', 'YYYY-MM-DDTHH:mm:ss +0000');
-        this.match_date_time = new MatchDate('MM/DD/YYYY h:mmA', 'YYYY-MM-DDTHH:mm:ss +0000');
-        this.match_date = new MatchDate('MM/DD/YYYY');
-        this.match_time = new MatchTime('HH:mm:ss');
+        this.match_timestamp = new MatchDate('MM/DD/YYYY h:mmA', 'YYYY-MM-DDTHH:mm:ss +0000')
+        this.match_date_time = new MatchDate('MM/DD/YYYY h:mmA', 'YYYY-MM-DDTHH:mm:ss +0000')
+        this.match_date = new MatchDate('MM/DD/YYYY')
+        this.match_time = new MatchTime('HH:mm:ss')
     }
 
     lazyLoadData(data){

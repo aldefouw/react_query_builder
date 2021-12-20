@@ -1,22 +1,22 @@
 class Button extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     updateToolTip() {
         if(this.props.title){
-            const anchor = $('a#' + this.props.id);
-            anchor.tooltip({title: function(){ return $(this).attr('data-title'); } });
+            const anchor = $('a#' + this.props.id)
+            anchor.tooltip({title: function(){ return $(this).attr('data-title') } })
         }
-    };
+    }
 
     componentDidMount() {
-        this.updateToolTip();
+        this.updateToolTip()
     }
 
     componentDidUpdate(){
-        this.updateToolTip();
+        this.updateToolTip()
     }
 
     render() {
@@ -44,6 +44,6 @@ class Button extends React.Component {
                         data-confirm={dataConfirm}
                         onClick={onClick}
                         rel={rel}
-                        className={className}>{label}{labelText}</button>);
+                        className={className}>{label}{labelText}</button>)
     }
 }
