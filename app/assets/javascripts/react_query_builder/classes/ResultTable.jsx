@@ -1,13 +1,7 @@
-function ReactTables () {
+function ResultTable () {
 
     this.initialize = () => {
-        // === QUERY BUILDER TABLE ==== //
-        this.addQueryTable()
-    }
 
-    this.addQueryTable = () => {
-
-        //Data Table
         const columns = document.getElementById('query_columns')
 
         if(columns){

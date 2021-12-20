@@ -1,4 +1,5 @@
 function QueryFieldMappings(){
+
 	var display_fields = $('#display_fields_button')
 	var hide_fields = $('#hide_fields_button')
 	var query_fields = $('#query_fields')
@@ -16,4 +17,5 @@ function QueryFieldMappings(){
 		display_fields.show()
 		query_fields.fadeOut()
 	})
+
 }
