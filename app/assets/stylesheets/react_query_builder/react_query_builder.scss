@@ -1,5 +1,4 @@
 /*
- *= require_tree ./react
  *= require react-table/react-table
  *= require react_query_builder/font-awesome/css/all
  */
@@ -18,6 +17,10 @@
 @import "simple_form-bootstrap/overrides";
 
 /* INDEX TABLES */
+
+.btn-trans {
+    opacity: 0.5;
+}
 
 #qb-index-page-view-list{
     font-size: 14px;
