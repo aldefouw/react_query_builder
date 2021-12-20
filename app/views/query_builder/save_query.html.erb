@@ -1,0 +1,45 @@
+<div class="card-header">
+  <h3>Save Query As</h3>
+</div>
+<div class="card-body">
+  <%= simple_form_for @query_form, @path do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <%= f.input :title, label: "Title:" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <%= f.input :description, label: "Description:", as: :text %>
+        </div>
+      </div>
+
+      <%= f.input :display_fields, params[:display_fields] ?
+                                       {  :as => :hidden, input_html: { value:  begin
+                                                                                 JSON.parse(@params_for_save[:display_fields]) ?
+                                                                                 @params_for_save[:display_fields] :
+                                                                                 nil rescue params[:display_fields].to_json
+                                                                                end } } :
+                                       { :as => :hidden } %>
+
+      <%= f.input :query_type, params[:query_type] ?
+                                   { :as => :hidden, input_html: { value: params[:query_type] } } :
+                                   { :as => :hidden } %>
+
+      <%= f.input :q, params[:q] ?
+                          { :as => :hidden, input_html: { value:  begin
+                                                                    JSON.parse(@params_for_save[:q]) ?
+                                                                    @params_for_save[:q] :
+                                                                    nil rescue params[:q].to_json
+                                                                  end } } :
+                          { :as => :hidden }  %>
+
+      <div class="row form-group">
+        <%= f.button :submit, "Save Query", class: 'btn btn-primary' %>
+        &nbsp;
+        <%= link_to "Cancel", request.referrer, class: "btn btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+</div>

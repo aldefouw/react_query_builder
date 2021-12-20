@@ -1,0 +1,48 @@
+<% if @run_query %>
+<div class="card">
+
+  <div class="card-header">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="float-left">Results</h4>
+        <%= react_component("DownloadExcelQueryResultButton",
+                            { cols: @query.selected_cols, report: @report.title },
+                            {id: 'download_excel_query_result_button', class: 'float-right mt-1 mb-1'}) %>
+
+        <%= react_component("DownloadQueryResultButton",
+                            { cols: @query.selected_cols, report: @report.title },
+                            {id: 'download_query_result_button', class: 'float-right mt-1 mb-1'})%>
+
+        <% if params[:action] != "show" && params[:action] != "create" %>
+          <%= f.submit "Save As&nbsp;&nbsp;&#61773".html_safe,
+                       data: { confirm: "Are you want save this report?" },
+                       class: "fa_submit btn btn-info ml-1 mr-1 mt-1 mb-1 float-right" %>
+        <% end %>
+
+        <% if params[:action] != "show" %>
+          <%= f.submit "Save&nbsp;&nbsp;&#61639".html_safe, data: {
+                                                                    confirm:
+                                                                        params[:action] == "create" ?
+                                                                        "Are you want to save this report?" :
+                                                                        "Are you want to save this report (this will overwrite existing columns and conditions for this report)?"
+                                                                  },
+                                                            class: "fa_submit btn btn-primary ml-1 mr-1 mt-1 mb-1 float-right"  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div id="query_table"></div>
+        <div id="query_columns"
+             data="<%= @query.react_table_cols %>"
+             query_type="<%= @query.query_type %>"
+             query_params="<%= @query_params %>"
+             display_fields="<%= @query.display_fields %>" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,25 @@
+
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3 pr-0" id="qb-index-page-view-list">
+    <div class="list-group" id="list-tab" role="tablist">
+      <% @reports.each_with_index do |report, index| %>
+        <a class="list-group-item list-group-item-secondary list-group-item-action py-2 <%= "active" if selected_query(index, report) %>" id="list-<%= report[:model].underscore %>-list" data-toggle="list" href="#list-<%= report[:model].underscore %>" role="tab" aria-controls="<%= report[:model].underscore %>">
+          <%= report[:title] %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-sm-9 col-md-9 col-lg-9 pl-0">
+    <div class="tab-content p-2" id="nav-tabContent">
+      <% @reports.each_with_index do |report, index| %>
+        <div class="tab-pane fade <%= "show active" if selected_query(index, report) %>" id="list-<%= report[:model].underscore %>" role="tabpanel" aria-labelledby="list-<%= report[:model].underscore %>-list">
+          <%= render 'saved_queries_index',
+                     title: report[:title],
+                     path: report[:model].underscore
+          %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

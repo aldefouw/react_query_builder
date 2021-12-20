@@ -1,0 +1,14 @@
+{
+  "name": "react_query_builder",
+  "private": true,
+  "dependencies": {
+    "chosen-js": "^1.8.7",
+    "react-table": "^6.11.5",
+    "moment": "^2.24.0",
+    "xlsx": "^0.16.0",
+    "axios": "^0.18.1"
+  },
+  "engines": {
+    "node": "10.x"
+  }
+}

@@ -1,0 +1,84 @@
+/*
+ *= require react-table/react-table
+ *= require react_query_builder/font-awesome/css/all
+ */
+@import "font-awesome/css/all.min";
+
+@import "bootstrap";
+
+
+
+@import "simple_form-bootstrap/form_abbr";
+@import "simple_form-bootstrap/form_collection_label";
+@import "simple_form-bootstrap/form_custom_checkbox_switch";
+@import "simple_form-bootstrap/form_floating_labels";
+@import "simple_form-bootstrap/form_multi_select";
+@import "simple_form-bootstrap/simple_form-bootstrap";
+@import "simple_form-bootstrap/overrides";
+
+@import "bootstrap_mods/bootstrap-chosen";
+@import "bootstrap_mods/bootstrap-modals";
+@import "bootstrap_mods/bootstrap-tooltips";
+
+/* INDEX TABLES */
+
+.btn-trans {
+    opacity: 0.5;
+}
+
+#qb-index-page-view-list{
+    font-size: 14px;
+}
+
+.qb-index-table{
+    font-size: 12px;
+}
+
+
+#nav-queryTabContent{
+    padding: 0px 15px 0px 15px;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.grouping{
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+}
+
+#list-tab {
+    height: 550px;
+    overflow: auto;
+}
+
+a.list-group-item {
+    min-height: 40px;
+    width: auto;
+}
+
+/* CARDS */
+.qb-grouping-title{
+    font-size: 22px;
+}
+
+/* query form */
+#display-field-checkboxes{
+    font-size: 12px;
+}
+
+.ui-state-highlight {
+    background: rgb(240,240,240);
+    margin: 3px 0 3px 5px;
+    border: 1px dotted gray;
+    width: 100px;
+    height: 19px;
+}
+.chosen-container.sorting .chzn-drop {
+    display: none;
+}
+
+.ui-tooltip {
+    max-width: 100em;
+}

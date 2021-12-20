@@ -1,0 +1,96 @@
+span.radio label, span.checkbox label {
+  padding: 5px 0 5px 5px;
+}
+
+span input[type=radio], span.checkbox label input, span.radio label input, span.radio label, label.boolean input {
+  margin: 0 5px;
+}
+
+span.checkbox {
+  margin: 0 0 5px 0;
+  float: left;
+  clear: both;
+}
+
+hr {
+  margin: 0.6em 0;
+  padding: 0;
+}
+
+div.form-group {
+  margin: 0.6em;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.error-block {
+  clear: both;
+  float: left;
+  color: #a60328;
+}
+
+table.table-padded tbody tr td input[type=text] {
+  width: 50px;
+  text-align: center;
+}
+
+table.table-padded thead tr th, table.table-padded thead tr td, table.table-padded tbody tr td {
+  text-align: center;
+}
+
+div.form-group {
+  clear: both;
+}
+
+input.narrow_input {
+  margin-bottom: 1em;
+  clear: both;
+  float: left;
+  width: 7em;
+}
+
+input.full_input {
+  width: 100%;
+}
+
+p.help-block {
+  float: left;
+  padding: 0.75em 0 0 0.5em;
+  font-size: 0.75em;
+}
+
+#mock_history_table {
+  height: 200px;
+  overflow: auto;
+}
+
+.sonographer_history {
+  background: #fff;
+}
+
+table.table-pulmonary tr td input {
+  width: 100%;
+}
+
+table.table-pulmonary tr td input, table.table-pulmonary tr td div {
+  margin: 0;
+}
+
+table#step-protocol .narrow_input {
+  margin: 0 auto;
+  padding: 0;
+  height: calc(1.7rem + 2px);
+  width: calc(3.4rem + 2px);
+  float: none;
+  display: block;
+}
+
+table#step-protocol td {
+  padding: 0.5em 0.3em;
+}
+
+.tooltip ul li {
+  list-style: none;
+}
