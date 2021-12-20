@@ -3,8 +3,6 @@ class BaseTable extends React.Component {
     constructor() {
         super()
 
-
-
         this.columns = []
 
         this.state = {
