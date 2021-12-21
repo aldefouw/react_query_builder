@@ -8,7 +8,7 @@
 //= require moment/moment
 
 // Type-ahead functionality
-
+//= require chosen-js
 
 // For Tool Tips
 //= require popper
