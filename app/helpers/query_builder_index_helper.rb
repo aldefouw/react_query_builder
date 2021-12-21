@@ -25,17 +25,17 @@ module QueryBuilderIndexHelper
   def query_action_toolbar(query)
     run_button = link_to "<i class=\"fas fa-bolt\"></i>&nbsp;Run".html_safe,
                          query_builder_path(id: query.id),
-                         class: 'btn btn-sm btn-info mr-1 rqb_run_btn '
+                         class: 'btn btn-sm btn-info mr-1 rqb_btn rqb_run_btn '
 
     edit_button = link_to "<i class=\"fas fa-edit\"></i>&nbsp;Edit".html_safe,
                           edit_query_builder_path(id: query.id),
-                          class: 'btn btn-sm btn-primary mr-1 rqb_edit_btn'
+                          class: 'btn btn-sm btn-primary mr-1 rqb_btn rqb_edit_btn'
 
     delete_button = link_to "<i class=\"fas fa-trash-alt\"></i>".html_safe,
                             query_builder_path(id: query.id),
                             method: :delete,
                             data: {confirm: "Are you sure you want to delete this query?"},
-                            class: 'btn btn-sm btn-danger rqb_delete_btn'
+                            class: 'btn btn-sm btn-danger rqb_btn rqb_delete_btn'
 
     button_div = content_tag(:div, run_button + edit_button + delete_button)
     td_toolbar = content_tag(:td, button_div)

@@ -7,16 +7,16 @@
         <h4 class="float-left">Results</h4>
         <%= react_component("DownloadExcelQueryResultButton",
                             { cols: @query.selected_cols, report: @report.title },
-                            {id: 'download_excel_query_result_button', class: 'float-right mt-1 mb-1 rqb_excel_btn'}) %>
+                            {id: 'download_excel_query_result_button', class: 'float-right mt-1 mb-1 rqb_btn rqb_excel_btn'}) %>
 
         <%= react_component("DownloadQueryResultButton",
                             { cols: @query.selected_cols, report: @report.title },
-                            {id: 'download_query_result_button', class: 'float-right mt-1 mb-1 rqb_csv_btn'})%>
+                            {id: 'download_query_result_button', class: 'float-right mt-1 mb-1 rqb_btn rqb_csv_btn'})%>
 
         <% if params[:action] != "show" && params[:action] != "create" %>
           <%= f.submit "Save As&nbsp;&nbsp;&#61773".html_safe,
                        data: { confirm: "Are you want save this report?" },
-                       class: "fa_submit btn btn-info ml-1 mr-1 mt-1 mb-1 float-right rqb_save_as_btn" %>
+                       class: "fa_submit btn btn-info ml-1 mr-1 mt-1 mb-1 float-right rqb_btn rqb_save_as_btn" %>
         <% end %>
 
         <% if params[:action] != "show" %>
@@ -26,7 +26,7 @@
                                                                         "Are you want to save this report?" :
                                                                         "Are you want to save this report (this will overwrite existing columns and conditions for this report)?"
                                                                   },
-                                                            class: "fa_submit btn btn-primary ml-1 mr-1 mt-1 mb-1 float-right rqb_save_btn"  %>
+                                                            class: "fa_submit btn btn-primary ml-1 mr-1 mt-1 mb-1 float-right rqb_btn rqb_save_btn"  %>
         <% end %>
       </div>
     </div>
