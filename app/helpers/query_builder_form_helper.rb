@@ -47,7 +47,7 @@ module QueryBuilderFormHelper
     fields = f.send(name, new_object, child_index: "new_#{type}") do |builder|
       render(name, f: builder)
     end
-    tag.button button_labels[button], class: "qb_add_fields btn btn-sm #{button_class[button]}", 'data-field-type': type,
+    tag.button button_labels[button], class: "qb_add_fields btn btn-sm #{button_class[button]} rqb_btn", 'data-field-type': type,
       'data-content': "#{fields}"
   end
 

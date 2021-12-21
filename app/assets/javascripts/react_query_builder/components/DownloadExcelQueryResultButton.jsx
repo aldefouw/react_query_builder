@@ -134,7 +134,7 @@ class DownloadExcelQueryResultButton extends React.Component {
 			</div>
 		} else {
 			return <Button onClick={(e) => { this.downloadFile(e, rows, this.props.report, this.props.cols) }}
-						   className={"btn btn-info ml-1 mr-1"}
+						   className={"btn btn-info ml-1 mr-1 rqb_btn rqb_excel_btn"}
 						   label={<span><i className={"fa fa-table"} /> Export Excel</span>}/>
 		}
 	}

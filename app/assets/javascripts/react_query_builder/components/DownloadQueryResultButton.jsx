@@ -37,7 +37,7 @@ class DownloadQueryResultButton extends React.Component {
       return (
           <CSVLink data={rows}
                    filename={this.props.report + ".csv"}
-                   className="btn btn-dark ml-1 mr-1"
+                   className="btn btn-dark ml-1 mr-1 rqb_btn rqb_csv_btn"
                    target="_blank">
             <i className={"fa fa-file"} /> Export CSV
           </CSVLink>
