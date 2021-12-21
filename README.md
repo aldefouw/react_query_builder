@@ -35,13 +35,13 @@ rails g scenic:view qb_my_new_model
 
 Button CSS Styling
 
-###Apply to All Buttons:
+### Apply to All Buttons:
 ```
 # ALL BUTTONS
 .rqb_btn { }
 ```
 
-###Apply to Specific Buttons:
+### Apply to Specific Buttons:
 ```
 # BACK
 .rqb_back_btn { }
