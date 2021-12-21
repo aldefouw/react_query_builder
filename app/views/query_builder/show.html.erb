@@ -4,7 +4,7 @@
 <div class="card-body">
   <h5>Name: <%= @query.title %>&nbsp;</h5>
   <p>Description: <%= @query.description %></p>
-  <p><%= link_to "Edit Report", edit_query_builder_path(id: @query.id), class: "btn btn-info" %></p>
+  <p><%= link_to "Edit Report", edit_query_builder_path(id: @query.id), class: "btn btn-info rqb_btn rqb_edit_report_btn" %></p>
 </div>
 <%= search_form_for(@search, @path) do |f| %>
   <input type="hidden" id="query_type" name="query_type" value="<%= @query.query_type %>">

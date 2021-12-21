@@ -59,7 +59,7 @@ module QueryBuilderFormHelper
 
   # Button - removes entire grouping panel from query form
   def button_to_remove_grouping
-    tag.button 'Remove Group', class: "qb_remove_fields btn btn-sm #{button_class[:remove_group]} float-right"
+    tag.button 'Remove Group', class: "qb_remove_fields btn btn-sm #{button_class[:remove_group]} float-right rqb_btn rqb_remove_group_btn"
   end
 
   # Button - adds a nested grouping panel to query form

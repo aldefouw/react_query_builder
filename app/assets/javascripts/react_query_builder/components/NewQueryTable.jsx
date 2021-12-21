@@ -84,6 +84,7 @@ class NewQueryTable extends React.Component {
                 filterable
                 minRows={3}
                 defaultFilterMethod={filterCaseInsensitiveSubString}
+                showPaginationBottom
                 defaultPageSize={25}
                 defaultSorted={this.props.defaultSorted}
                 className="-striped -highlight"

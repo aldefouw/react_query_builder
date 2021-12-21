@@ -36,9 +36,9 @@
                           { :as => :hidden }  %>
 
       <div class="row form-group">
-        <%= f.button :submit, "Save Query", class: 'btn btn-primary' %>
+        <%= f.button :submit, "Save Query", class: 'btn btn-primary rqb_btn rqb_save_btn' %>
         &nbsp;
-        <%= link_to "Cancel", request.referrer, class: "btn btn-danger" %>
+        <%= link_to "Cancel", request.referrer, class: "btn btn-danger rqb_btn rqb_cancel_btn" %>
       </div>
     </div>
   <% end %>
