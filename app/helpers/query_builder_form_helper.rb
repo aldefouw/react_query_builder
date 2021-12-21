@@ -14,7 +14,7 @@ module QueryBuilderFormHelper
   # Main title at top of form. Lets users know which view they are querying
   def query_form_header(title, query_type)
     title = content_tag(:div, content_tag(:h3, title), class: 'float-left')
-    button = content_tag(:div, link_to("Back", query_builder_index_path(query_type: query_type), class: 'btn btn-dark'), class: 'float-right')
+    button = content_tag(:div, link_to("Back", query_builder_index_path(query_type: query_type), class: 'btn btn-dark rqb_back_btn'), class: 'float-right')
     header = content_tag(:div, title + button, class: 'card-header')
   end
 
@@ -64,7 +64,7 @@ module QueryBuilderFormHelper
 
   # Button - adds a nested grouping panel to query form
   def button_to_nest_fields(type, button=nil)
-    tag.button button_labels[button], class: "qb_nest_fields btn btn-sm #{button_class[button]}", 'data-field-type': type, 'data-nest': true
+    tag.button button_labels[button], class: "qb_nest_fields btn btn-sm #{button_class[button]} rqb_btn", 'data-field-type': type, 'data-nest': true
   end
 
   # Button - Labels for query form buttons
