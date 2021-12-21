@@ -28,16 +28,6 @@
 //= require_tree ./components
 //= require_tree ./classes
 
-// Add this method within your initialization block:
-// Vanilla:
-// document.addEventListener("DOMContentLoaded", function(event) {
-//   ReactQueryBuilder.enable()
-
-// Turbolinks:
-// document.addEventListener("turbolinks:load", function(event) {
-//   ReactQueryBuilder.enable()
-
-
 // ReactQueryBuilder Namespace
 // https://robots.thoughtbot.com/module-pattern-in-javascript-and-coffeescript
 window.ReactQueryBuilder = {}
