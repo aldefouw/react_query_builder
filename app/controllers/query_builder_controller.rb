@@ -145,7 +145,7 @@ class QueryBuilderController < ApplicationController
 	end
 
 	def result_data
-		@report.result_data(@search)
+		@report.results(@search)
 	end
 
 	def form_path
