@@ -139,9 +139,13 @@ class QueryBuilderController < ApplicationController
 		@path = form_path
 
 		@run_query = run_query
-		@data = @search.result(distinct: true) if include_data
+		@data = result_data if include_data
 
 		render 'query_form' if render
+	end
+
+	def result_data
+		@report.result_data(@search)
 	end
 
 	def form_path

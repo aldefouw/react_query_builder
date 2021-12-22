@@ -6,4 +6,8 @@ class QueryBuilderRecord < ApplicationRecord
 		"username"
 	end
 
+	def self.result_data(search)
+		search.result(distinct: true)
+	end
+
 end
