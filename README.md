@@ -10,13 +10,14 @@
 ## Add to Gemfile
 ```
 gem 'react_query_builder'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'react-rails'
-gem 'bootstrap', "~> 4.1"
-gem 'reform', "~> 2.2"
-gem 'reform-rails', "~> 0.1"
-gem 'chosen-rails', "~> 1.9"
 gem 'simple_form'
-gem 'jquery-ui-rails', '~> 6.0'
+gem 'reform'
+gem 'reform-rails'
+gem 'scenic'
 ```
 
 
@@ -77,4 +78,26 @@ Button CSS Styling
 .rqb_display_fields_btn { }
 
 ```
+
+### Overriding methods using Initializers
+
+You can easily override default behavior of the gem by placing an evaluated version of a class as an initializer file in your app:
+
+
+You might, for example, create a file named:
+
+`/app/config/initializers/react_query_builder.rb`
+
+To override some controller behavior in the base app:
+
+```
+ReactQueryBuilder::QueryBuilderController.class_eval do
+
+	def method_name
+		#Whatever override behavior you want to use
+	end
+
+end
+```
+
 
