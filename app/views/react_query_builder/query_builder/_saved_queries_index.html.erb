@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-6 col-md-6 col-lg-6">
     <div class="btn-group float-right" role="group">
-      <%= link_to 'New Query +', new_query_builder_path(query_type: path.parameterize), method: :get, class: 'btn btn-success rqb_btn rqb_new_query_btn' %>
+      <%= link_to 'New Query +', react_query_builder_rails_engine.new_query_builder_path(query_type: path.parameterize), method: :get, class: 'btn btn-success rqb_btn rqb_new_query_btn' %>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <div class="card-header">
-  <%= link_to("Back", query_builder_index_path(query_type: @query.query_type), class: 'float-right btn btn-dark rqb_btn rqb_back_btn') %>
+  <%= link_to("Back", react_query_builder_rails_engine.query_builder_index_path(query_type: @query.query_type), class: 'float-right btn btn-dark rqb_btn rqb_back_btn') %>
   <h3><%= @title %></h3>
   <% if @query.title.present? %>
   <div class="mt-3 pt-3" style="border-top: 1px solid #000000;">

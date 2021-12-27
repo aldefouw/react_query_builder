@@ -9,10 +9,9 @@ function ResultTable () {
             const query_type = columns.getAttribute('query_type')
             const query_params = columns.getAttribute('query_params')
             const display_fields = columns.getAttribute('display_fields')
+            const url = columns.getAttribute('url')
 
             if(columns_data) {
-
-                const url = '/query_builder.json'
 
                 const table = document.getElementById('query_table')
                 const download_excel = document.getElementById('download_excel_query_result_button')
