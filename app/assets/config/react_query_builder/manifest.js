@@ -7,3 +7,4 @@
 
 
 //= link react_query_builder/react_query_builder.js
+//= link react_query_builder/react_query_builder.css
