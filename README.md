@@ -1,5 +1,7 @@
 # React Query Builder
 
+A plug-and-play solution to building ad-hoc queries in Rails apps. 
+
 ![Sample Person Query](QBPersonExample.png)
 
 ---
