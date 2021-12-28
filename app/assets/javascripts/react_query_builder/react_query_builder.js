@@ -1,4 +1,5 @@
 // ReactQueryBuilder Javascript
+//= require jquery
 //= require jquery-ui
 
 // AJAX requests
