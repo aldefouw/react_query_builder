@@ -6,6 +6,7 @@ module ReactQueryBuilder
 
 			def create
 				generate "scenic:view qb_#{args[0]}"
+				generate "model qb_#{args[0]}"
 			end
 
 		end

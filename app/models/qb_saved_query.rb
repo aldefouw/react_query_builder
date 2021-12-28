@@ -103,7 +103,11 @@ class QbSavedQuery < ApplicationRecord
   end
 
   def set_last_run_time(user:)
-    self.update(last_run: Date.today, last_run_by: user.send(QueryBuilderRecord.user_method))
+    if QueryBuilderRecord.method_defined?(:user_method)
+      self.update(last_run: Date.today, last_run_by: user.send(QueryBuilderRecord.user_method))
+    else
+      self.update(last_run: Date.today, last_run_by: "application")
+    end
   end
 
 end
