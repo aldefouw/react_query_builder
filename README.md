@@ -34,23 +34,42 @@ end
 ## Initial Installation
 
 ```
-bundle install
+$ bundle install
 ```
 
 ```
-rails g react_query_builder:install
+$ rails g react_query_builder:install
 ```
 
-  
+
+### jQuery Asset Dependency
+If you do not already have jQuery accesible within the asset pipeline, you'll need to run the jQuery generator:
+
+There is a generator that will attempt to do this for you:
+```
+$ rails g react_query_builder:jquery
+```
+
+If the generator doesn't work in your layout, you'll need to manually require **jquery** and **jquery_ujs** before the **ReactQueryBuilder** code is loaded. 
+
+It will typically be prepended in `app/assets/javascripts/application.js` like this:
+
+```
+//= require jquery
+//= require jquery_ujs
+```
+
+
+---  
 
 ### Add a New View
 ```
-rails g react_query_builder:view <view_name_here>
+$ rails g react_query_builder:view <view_name_here>
 ```
 
 **Example:**
 ```
-rails g react_query_builder:view person
+$ rails g react_query_builder:view person
 ```
 
 A versioned Scenic view will be generated that must be defined in order for the view to show up in Query Builder.
@@ -74,7 +93,7 @@ A view is typically support by a standard **ActiveRecord** model.
 In this case, it would be sensible to generate a **Person** model if you don't already have one.
 
 ```
-rails g model Person last_name:string first_name:string middle_name:string
+$ rails g model Person last_name:string first_name:string middle_name:string
 ```
 
 **Location**
@@ -96,7 +115,7 @@ FROM people;
 After your view is specified you'll need to run migrations:
 
 ```
-rails db:migrate
+$ rails db:migrate
 ```
 
 
