@@ -1,5 +1,7 @@
 # React Query Builder
 
+![Sample Person Query](QBPersonExample.png)
+
 ---
 ## Gemfile
 
@@ -17,7 +19,7 @@ gem 'reform-rails'
 
 Yes - that's a lot of dependencies.
 
-But this is meant to a plug-and-play solution.
+But this is meant to be a plug-and-play solution.
 
 ## Development Group Gemfile
 
@@ -63,18 +65,18 @@ It will typically be prepended in `app/assets/javascripts/application.js` like t
 ---  
 
 ### Add a New View
+
+React Query Builder depends upon views to populate the visible data tables.
+
+Those versioned views are generated using the following command structure:
+
 ```
-$ rails g react_query_builder:view <view_name_here>
+$ rails g react_query_builder:view <view_name>
 ```
 
-**Example:**
-```
-$ rails g react_query_builder:view person
-```
+A versioned view will be generated that must be defined in order for the view to show up in Query Builder.
 
-A versioned Scenic view will be generated that must be defined in order for the view to show up in Query Builder.
-
-Each time you run the `rails g react_query_builder:view person` command, along with a new database migration, a new version of the view will be generated in the views folder:
+Each time you run the `rails g react_query_builder:view <view_name>` command, along with a new database migration, a new version of the view will be generated in the views folder:
 
 ```
 db/views/qb_view_name_v01.sql
@@ -96,12 +98,16 @@ In this case, it would be sensible to generate a **Person** model if you don't a
 $ rails g model Person last_name:string first_name:string middle_name:string
 ```
 
+```
+$ rails g react_query_builder:view person
+```
+
 **Location**
 ```
 db/views/qb_view_person_01.sql
 ```
 
-**Contents**
+**View Definition**
 ```
 SELECT people.id,
        people.last_name,
@@ -118,6 +124,9 @@ After your view is specified you'll need to run migrations:
 $ rails db:migrate
 ```
 
+Once your migration is run, you should see the view show up in Query Builder.
+
+![Initial View](InitialQBView.png)
 
 ---
 ## Button CSS Styling
