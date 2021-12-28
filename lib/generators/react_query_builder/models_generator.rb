@@ -1,9 +1,8 @@
 require "rails/generators"
-require "rails/generators/rails/model/model_generator"
 
 module ReactQueryBuilder
 	module Generators
-		class ModelsGenerator < Rails::Generators::Base
+		class ModelsGenerator < ::Rails::Generators::Base
 			source_root File.expand_path("templates", __dir__)
 
 			def models

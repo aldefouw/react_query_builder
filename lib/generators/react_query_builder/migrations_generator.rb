@@ -1,11 +1,12 @@
-require "rails/generators"
+require 'rails/generators'
 require "rails/generators/active_record"
 
 module ReactQueryBuilder
 	module Generators
-		class MigrationsGenerator < Rails::Generators::Base
 
-			include Rails::Generators::Migration
+		class MigrationsGenerator < ::Rails::Generators::Base
+
+			include ::Rails::Generators::Migration
 
 			source_root File.expand_path("templates", __dir__)
 
