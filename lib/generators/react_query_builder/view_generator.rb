@@ -4,9 +4,29 @@ module ReactQueryBuilder
 	module Generators
 		class ViewGenerator < ::Rails::Generators::Base
 
+			source_root File.expand_path("templates", __dir__)
+
 			def create
-				generate "scenic:view qb_#{args[0]}"
-				generate "model qb_#{args[0]}"
+				model_name = args[0]
+
+				generate "scenic:view qb_#{model_name}"
+
+				text = "class Qb#{model_name.classify} < ::QueryBuilder
+
+	load_enums_for(models: [#{model_name.classify}])
+
+	def self.model
+		#{model_name.classify}
+	end
+
+	def self.title
+		'#{model_name.classify}'
+	end
+
+end"
+
+				create_file "app/models/qb_#{args[0]}.rb" do text end
+
 			end
 
 		end
