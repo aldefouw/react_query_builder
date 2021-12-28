@@ -17,6 +17,8 @@ module ReactQueryBuilder
 					"//= link react_query_builder/react_query_builder.css\n"
 				end
 
+				#Add Font-Awesome fonts to public facing directory in app
+				directory("../../../../public/fonts", "public/fonts")
 			end
 
 		end
