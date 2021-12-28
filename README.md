@@ -169,9 +169,9 @@ Query Builder views are any models prefixed by **qb_** in the filename.  They ar
 
 If you have permissions assigned to data models, you might need to prevent certain views from being accessible to a particular user.
 
-You can achieve this by overriding the default method in the initializer.
+You can achieve this by overriding the default #result_data method in the initializer.
 
-For example, you might choose to pass options with multiple keys that contains the current_ability that a user has.
+For example, you might choose to pass options with multiple keys that contains the current_ability that a user has (in case of using CanCanCan).
 
 ```
 ReactQueryBuilder::QueryBuilderController.class_eval do
@@ -197,13 +197,28 @@ class QueryBuilderRecord < ApplicationRecord
     ...
     
     def self.results(options)
-        ids_by_ability = model.accessible_by(options[:current_ability], :index_active).ids
-        options[:search].result(distinct: true).where(id: ids_by_ability)
+        #method override goes here
     end
     
     ...
     
 end    
+```
+
+If you have some exception to the default behavior, you can also override the method in a specific Query Builder model:
+
+```
+class QbPerson < ::QueryBuilder
+
+	...
+
+	def self.results(options)
+		#method override goes here
+	end
+	
+	...
+
+end   
 ```
 
 ### Specifying Custom Username Method
