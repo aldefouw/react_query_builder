@@ -48,6 +48,14 @@ You must specify the raw SQL needed within the view.
 
 ### Person View Example
 
+A view is typically support by a standard **ActiveRecord** model.
+
+In this case, it would be sensible to generate a **Person** model if you don't already have one.
+
+```
+rails g model Person last_name:string first_name:string middle_name:string
+```
+
 **Location**
 ```
 db/views/qb_view_person_01.sql
@@ -61,6 +69,7 @@ SELECT people.id,
        people.middle_name
 FROM people;
 ```
+
 
 
 ## Run Migrations
@@ -243,3 +252,18 @@ class QueryBuilderRecord < ApplicationRecord
 
 end
 ```
+
+
+### Rails 7 - Turbo Rails & Import Maps
+
+By default, Rails 7 comes with `@hotwired/turbo-rails` and `importmaps` gem.  
+
+Within `javascript/application.js` you will see:
+
+```
+import "@hotwired/turbo-rails"
+```
+
+This implementation is NOT currently compatible with React Query Builder.
+
+Pull requests are welcome if you have an implementation that is backwards compatible.
