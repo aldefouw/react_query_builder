@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
 	spec.summary     =    "React-based interface for querying database views."
 	spec.description =    "A library that allows you to add a Query Engine to your Rails application."
 	spec.authors     =    ["Adam De Fouw"]
-	spec.email       =    'aldefouw@medicine.wisc.edu'
+	spec.email       =    'adefouw@gmail.com'
 	spec.files       =    ["lib/react_query_builder.rb"]
 	spec.require_paths =  ["lib"]
 	spec.license     =    'MIT'
