@@ -12,7 +12,7 @@ module ReactQueryBuilder
 			def create
 				if generating?
 					models.each do |model|
-						template "models/#{model}", "app/models/#{model}"
+						template "models/react_query_builder/#{model}", "app/models/react_query_builder/#{model}"
 					end
 				end
 			end

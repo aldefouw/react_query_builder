@@ -11,7 +11,8 @@ module ReactQueryBuilder
 
 				generate "scenic:view qb_#{model_name}"
 
-				text = "class Qb#{model_name.classify} < ::QueryBuilder
+				text = "module ReactQueryBuilder
+	class Qb#{model_name.classify} < ::QueryBuilder
 
 	load_enums_for(models: [#{model_name.classify}])
 
@@ -25,7 +26,7 @@ module ReactQueryBuilder
 
 end"
 
-				create_file "app/models/qb_#{args[0]}.rb" do text end
+				create_file "app/models/react_query_builder/qb_#{args[0]}.rb" do text end
 
 			end
 

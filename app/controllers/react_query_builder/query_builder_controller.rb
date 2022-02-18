@@ -3,12 +3,12 @@ module ReactQueryBuilder
 	class QueryBuilderController < ApplicationController
 
 		def index
-			@queries = QbSavedQuery.all
-			@reports = QueryBuilder.reports
+			@queries = ReactQueryBuilder::QbSavedQuery.all
+			@reports = ReactQueryBuilder::QueryBuilder.reports
 		end
 
 		def new
-			QueryBuilder.report_included?(params[:query_type]) ?
+			ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
 				config_report(run_query: false) :
 				redirect_to(react_query_builder_rails_engine.query_builder_index_path)
 		end
@@ -37,7 +37,7 @@ module ReactQueryBuilder
 		end
 
 		def destroy
-			@query = QbSavedQuery.find_by(id: params[:id])
+			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
 			if @query.nil?
 				flash[:warning] = "This query does not exist."
 				redirect_to react_query_builder_rails_engine.query_builder_index_path
@@ -75,8 +75,8 @@ module ReactQueryBuilder
 
 		def save_query
 			@path = form_path
-			@query = QbSavedQuery.new
-			@query_form = SaveQueryForm.new(@query)
+			@query = ReactQueryBuilder::QbSavedQuery.new
+			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 
 			@params_for_save = set_params
 			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
@@ -104,7 +104,7 @@ module ReactQueryBuilder
 		end
 
 		def save_query_to_db
-			@query = QbSavedQuery.find_by(id: params[:id])
+			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
 			@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields])
 			query_redirect
 		end
@@ -122,8 +122,8 @@ module ReactQueryBuilder
 		                  include_data: false)
 
 			@query = params[:id] && use_saved_params ?
-				         QbSavedQuery.find_by(id: params[:id]) :
-				         QbSavedQuery.new(options)
+				         ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id]) :
+				         ReactQueryBuilder::QbSavedQuery.new(options)
 
 			if params[:id] && @query.nil?
 				return redirect_to react_query_builder_rails_engine.query_builder_index_path

@@ -1,13 +1,17 @@
-class QueryBuilderRecord < ApplicationRecord
+module ReactQueryBuilder
 
-	self.abstract_class = true
+	class QueryBuilderRecord < ApplicationRecord
 
-	def self.user_method
-		"username"
-	end
+		self.abstract_class = true
 
-	def self.results(search)
-		search.result(distinct: true)
+		def self.user_method
+			"username"
+		end
+
+		def self.results(search)
+			search.result(distinct: true)
+		end
+
 	end
 
 end
