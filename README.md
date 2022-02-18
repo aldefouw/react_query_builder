@@ -19,7 +19,7 @@ gem 'reform'
 gem 'reform-rails'
 ```
 
-Yes - that's a lot of dependencies.
+Yes - those are a lot of dependencies.
 
 But this is meant to be a plug-and-play solution.
 
