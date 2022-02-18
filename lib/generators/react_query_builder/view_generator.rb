@@ -12,16 +12,19 @@ module ReactQueryBuilder
 				generate "scenic:view qb_#{model_name}"
 
 				text = "module ReactQueryBuilder
-	class Qb#{model_name.classify} < ::QueryBuilder
 
-	load_enums_for(models: [#{model_name.classify}])
+	class Qb#{model_name.classify} < QueryBuilder
 
-	def self.model
-		#{model_name.classify}
-	end
+		load_enums_for(models: [#{model_name.classify}])
 
-	def self.title
-		'#{model_name.classify}'
+		def self.model
+			#{model_name.classify}
+		end
+
+		def self.title
+			'#{model_name.classify}'
+		end
+
 	end
 
 end"

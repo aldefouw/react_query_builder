@@ -9,7 +9,7 @@ module ReactQueryBuilder
 				inject_into_file 'app/views/layouts/application.html.erb', before: "</head>\n" do <<-'RUBY'
 
 		<!-- START: React Query Builder -->
-		<% if request.env['PATH_INFO'].include?('/query_builder') %>
+		<% request.env['REQUEST_PATH'].include?(react_query_builder_rails_engine.query_builder_index_path) %>
 		  <%= stylesheet_link_tag    'react_query_builder/react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
 		  <%= stylesheet_link_tag    'react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
 		

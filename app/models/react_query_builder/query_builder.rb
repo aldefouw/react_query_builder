@@ -15,17 +15,18 @@ module ReactQueryBuilder
     end
 
     def field_mappings
-      QbFieldMapping.find_by(model: self.class.name)
+      QbFieldMapping.find_by(model: self.class.demodulize.name)
     end
 
     def self.field_mappings
-      QbFieldMapping.find_by(model: self.name)
+      QbFieldMapping.find_by(model: self.name.demodulize)
     end
 
     def self.reports
-      Rails.application.eager_load!
+      ::Rails.application.eager_load!
+
       self.descendants.map(&:name).
-        map { |n| { title: n.constantize.title, model: n } }.
+        map { |n| { title: n.constantize.title, model: n.demodulize } }.
         sort_by{ |h| h[:title] }
     end
 

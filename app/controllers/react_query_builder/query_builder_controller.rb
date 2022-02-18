@@ -133,7 +133,7 @@ module ReactQueryBuilder
 
 			@query_params = params[:q] ? params[:q].to_json : @query.q
 
-			@report = @query.query_type.classify.constantize
+			@report = @query.current_query
 			@search = @report.ransack(match_conditions)
 			@search.build_grouping unless @search.groupings.any?
 

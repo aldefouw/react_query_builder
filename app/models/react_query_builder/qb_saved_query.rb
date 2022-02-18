@@ -101,7 +101,7 @@ module ReactQueryBuilder
     end
 
     def current_query
-      query_type.camelize.constantize unless query_type_unavailable
+      "#{self.class.module_parent_name}::#{query_type.classify}".constantize unless query_type_unavailable
     end
 
     def set_last_run_time(user:)
