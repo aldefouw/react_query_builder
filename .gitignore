@@ -9,6 +9,7 @@
 
 /spec/dummy/tmp/*
 /spec/dummy/log/*
+/spec/dummy/db/*
 
 /tmp/
 
