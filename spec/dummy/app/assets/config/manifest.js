@@ -1,3 +1,5 @@
+//= link application
+
 //= link react_query_builder/manifest.js
 //= link react_query_builder.js
 //= link react_query_builder.css

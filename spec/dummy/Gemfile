@@ -18,6 +18,10 @@ gem 'simple_form'
 gem 'reform'
 gem 'reform-rails'
 
+group :development, :test do
+	gem 'scenic'
+end
+
 group :development do
   gem 'listen', '~> 3.3'
   gem 'spring'

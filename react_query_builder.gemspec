@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
 
 	spec.add_development_dependency 'scenic'
 	spec.add_development_dependency 'rspec-rails'
+	spec.add_development_dependency 'pry'
+
 	spec.test_files = Dir["spec/**/*"]
 
 	spec.add_runtime_dependency 'bootstrap', '~> 4.1'

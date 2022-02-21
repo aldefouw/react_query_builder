@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_192149) do
+ActiveRecord::Schema.define(version: 2022_02_21_195955) do
+
+  create_table "people", force: :cascade do |t|
+    t.string "last_name"
+    t.string "first_name"
+    t.string "middle_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "qb_field_mappings", force: :cascade do |t|
     t.string "model"
@@ -31,4 +39,3 @@ ActiveRecord::Schema.define(version: 2022_02_21_192149) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-end
