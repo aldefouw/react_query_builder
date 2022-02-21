@@ -22,7 +22,9 @@ Gem::Specification.new do |spec|
 		"wiki_uri"          => "https://github.com/aldefouw/react_query_builder/wiki"
 	}
 
-	spec.add_development_dependency 'scenic', "~> 2.0"
+	spec.add_development_dependency 'scenic'
+	spec.add_development_dependency 'rspec-rails'
+	spec.test_files = Dir["spec/**/*"]
 
 	spec.add_runtime_dependency 'bootstrap', '~> 4.1'
 	spec.add_runtime_dependency 'sass-rails', '~> 6.0'
@@ -37,4 +39,5 @@ Gem::Specification.new do |spec|
 	spec.add_runtime_dependency "reform", "~> 2.2"
 	spec.add_runtime_dependency "reform-rails", "~> 0.1"
 
+	spec.add_runtime_dependency 'rails'
 end

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoWebpack</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+		<!-- START: React Query Builder -->
+		<% if request.env['REQUEST_PATH'].include?(react_query_builder_rails_engine.query_builder_index_path) %>
+		  <%= stylesheet_link_tag    'react_query_builder/react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
+		  <%= stylesheet_link_tag    'react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
+		
+		  <%= javascript_include_tag 'react_query_builder/react_query_builder', 'data-turbolinks-track': 'reload' %>
+		  <%= javascript_include_tag 'react_query_builder', 'data-turbolinks-track': 'reload' %>
+		  <script type="text/javascript">
+			  //This is used to add the infinite number of Add Query Criteria / Nested Groupings
+			  $(function() {
+				  <%= yield :document_ready %>
+			  });
+		  </script>
+		<% end %>
+		<!-- END: React Query Builder -->
+
+</head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
