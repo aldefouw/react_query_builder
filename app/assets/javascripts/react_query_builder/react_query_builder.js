@@ -19,7 +19,7 @@ ReactQueryBuilder.enable = function() {
     // ==== RESULTS TABLE INITIALIZER ==== //
     const results = new ResultTable()
     results.initialize()
-    console.log('Chosen to ReactTable to display querying results')
+    console.log('Result Table Initialized')
 
     // ==== CHOSEN SORTABLE OPTIONS FOR DISPLAY FIELDS ==== //
     const chosen = new AddChosen()
