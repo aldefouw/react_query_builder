@@ -12,9 +12,9 @@
 		<% if request.env['REQUEST_PATH'].include?(react_query_builder_rails_engine.query_builder_index_path) %>
 		  <%= stylesheet_link_tag    'react_query_builder/react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
 		  <%= stylesheet_link_tag    'react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
-		
-		  <%= javascript_include_tag 'react_query_builder/react_query_builder', 'data-turbolinks-track': 'reload' %>
-		  <%= javascript_include_tag 'react_query_builder', 'data-turbolinks-track': 'reload' %>
+
+			<%= javascript_include_tag 'react_query_builder', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'react_query_builder/react_query_builder', 'data-turbolinks-track': 'reload' %>
 		  <script type="text/javascript">
 			  //This is used to add the infinite number of Add Query Criteria / Nested Groupings
 			  $(function() {
