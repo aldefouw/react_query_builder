@@ -2,7 +2,7 @@ module ReactQueryBuilder
 
   class SaveQueryForm < Reform::Form
 
-    include ModelReflections
+    include Reform::Form::ActiveModel::ModelReflections
 
     property :title, validates: { presence: true }
     validates_uniqueness_of :title, scope: :query_type

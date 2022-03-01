@@ -2,7 +2,7 @@ module ReactQueryBuilder
 
   class SaveFieldMappingsForm < Reform::Form
 
-    include ModelReflections
+    include Reform::Form::ActiveModel::ModelReflections
 
     collection :labels do
 
