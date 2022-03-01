@@ -15,6 +15,7 @@ require 'react-rails'
 require 'simple_form'
 require 'reform/rails'
 require 'rails-controller-testing'
+require 'database_cleaner'
 
 require 'react_query_builder'
 
