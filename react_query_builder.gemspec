@@ -22,14 +22,17 @@ Gem::Specification.new do |spec|
 		"wiki_uri"          => "https://github.com/aldefouw/react_query_builder/wiki"
 	}
 
-	spec.add_dependency 'scenic'
-	spec.add_dependency 'rspec-rails'
-	spec.add_dependency 'pry-rails'
-	spec.add_dependency 'pry'
-	spec.add_dependency 'bootsnap'
-	spec.add_dependency 'sqlite3'
-	spec.add_dependency 'capybara'
-	spec.add_dependency 'bundler'
+	spec.add_development_dependency 'scenic'
+	spec.add_development_dependency 'rspec-rails'
+	spec.add_development_dependency 'pry-rails'
+	spec.add_development_dependency 'pry'
+	spec.add_development_dependency 'bootsnap'
+	spec.add_development_dependency 'capybara'
+
+	spec.add_development_dependency 'puma'
+	spec.add_development_dependency 'selenium-webdriver'
+
+	spec.add_development_dependency 'sqlite3'
 
 	spec.add_dependency 'bootstrap', '~> 4.1'
 	spec.add_dependency 'sass-rails', '~> 6.0'
