@@ -28,6 +28,8 @@ Gem::Specification.new do |spec|
 	spec.add_development_dependency 'pry'
 	spec.add_development_dependency 'bootsnap'
 	spec.add_development_dependency 'capybara'
+	spec.add_development_dependency 'rails-controller-testing'
+	spec.add_development_dependency 'bundler'
 
 	spec.add_development_dependency 'puma'
 	spec.add_development_dependency 'selenium-webdriver'

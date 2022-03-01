@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'spec_helper'
 
+#We need to manually include our gems since they are NOT auto-loaded (no Gemfile in Dummy application)
 require 'rails/all'
 
 require 'pry'
@@ -13,6 +14,7 @@ require 'jquery-ui-rails'
 require 'react-rails'
 require 'simple_form'
 require 'reform/rails'
+require 'rails-controller-testing'
 
 require 'react_query_builder'
 
