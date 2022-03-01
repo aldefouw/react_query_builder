@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
+	#Needed to ACTUALLY render views
 	render_views
 
 	#Needs to define the routes we're using
@@ -44,10 +45,15 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response.status).to eq(200)
 		end
 
+		it 'renders the query_form view if VALID query_type specified' do
+			get :new, params: { query_type: "qb_person" }
+			expect(response).to render_template("query_form")
+		end
+
 	end
 
 	describe "create" do
-
+		
 	end
 
 	describe "edit" do
