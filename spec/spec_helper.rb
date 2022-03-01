@@ -17,6 +17,9 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+
+
 RSpec.configure do |config|
 
 	config.before(:each) do
@@ -27,6 +30,13 @@ RSpec.configure do |config|
 	config.before(:suite) do
 		DatabaseCleaner.strategy = :transaction
 		DatabaseCleaner.clean_with(:truncation)
+
+		# 20.times do
+		# 	Person.create(first_name: Faker::Name.first_name,
+		# 	              last_name: Faker::Name.last_name,
+		# 	              middle_name: Faker::Name.middle_name)
+		# end
+
 	end
 
 	config.around(:each) do |example|

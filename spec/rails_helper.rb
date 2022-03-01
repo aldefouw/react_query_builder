@@ -1,6 +1,5 @@
 #rails_helper.rb
 ENV['RAILS_ENV'] ||= 'test'
-
 require 'spec_helper'
 
 #We need to manually include our gems since they are NOT auto-loaded (no Gemfile in Dummy application)
@@ -16,6 +15,7 @@ require 'simple_form'
 require 'reform/rails'
 require 'rails-controller-testing'
 require 'database_cleaner'
+require 'faker'
 
 require 'react_query_builder'
 
