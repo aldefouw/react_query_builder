@@ -9,7 +9,8 @@
 		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 		
 <!-- START: React Query Builder -->
-		<% if request.env['REQUEST_PATH'].include?(react_query_builder_rails_engine.query_builder_index_path) %>
+
+		<% if request.env['PATH_INFO'].include?(react_query_builder_rails_engine.query_builder_index_path) %>
 		  <%= stylesheet_link_tag    'react_query_builder/react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
 		  <%= stylesheet_link_tag    'react_query_builder', media: 'all', 'data-turbolinks-track': 'reload' %>
 
