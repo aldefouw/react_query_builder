@@ -25,18 +25,27 @@ RSpec.configure do |config|
 	config.before(:each) do
 		Capybara.current_driver = ENV['HEADLESS'] == 'true' ? :selenium_headless : :selenium
 		Capybara.raise_server_errors = false
+
+		#Create 20 fake people in the database
+		20.times do
+			Person.create(first_name: Faker::Name.first_name,
+			              last_name: Faker::Name.last_name,
+			              middle_name: Faker::Name.middle_name)
+		end
+
+		#Save a Test Query to the Database that searches for the last Person
+		ReactQueryBuilder::QbSavedQuery.create(title: "Test Query",
+		                                       description: "A test description",
+		                                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.last.last_name + '"}}}}}}}',
+		                                       display_fields: '{"first_name":"1","middle_name":"1",last_name":"1",}',
+		                                       query_type: "qb_person",
+		                                       last_run: DateTime.now,
+		                                       last_run_by: "rspec")
 	end
 
 	config.before(:suite) do
 		DatabaseCleaner.strategy = :transaction
 		DatabaseCleaner.clean_with(:truncation)
-
-		# 20.times do
-		# 	Person.create(first_name: Faker::Name.first_name,
-		# 	              last_name: Faker::Name.last_name,
-		# 	              middle_name: Faker::Name.middle_name)
-		# end
-
 	end
 
 	config.around(:each) do |example|

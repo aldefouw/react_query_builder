@@ -39,3 +39,12 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+
+  create_view "qb_people", sql_definition: <<-SQL
+      SELECT people.id,
+           people.last_name,
+           people.first_name,
+           people.middle_name
+    FROM people
+  SQL
+end

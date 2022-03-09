@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
 	spec.add_development_dependency 'selenium-webdriver'
 
 	spec.add_development_dependency 'sqlite3'
+	spec.add_development_dependency 'scenic_sqlite_adapter'
 
 	spec.add_dependency 'bootstrap', '~> 4.1'
 	spec.add_dependency 'sass-rails', '~> 6.0'
