@@ -120,6 +120,18 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 	describe "show" do
 
+		it 'should redirect to index if passed invalid ID' do
+			get :show, { params: { id: 100 } }
+			expect(response).to redirect_to('/query_builder')
+		end
+
+		it 'should render the show template, title, and description if ID is valid' do
+			get :show, { params: { id: ReactQueryBuilder::QbSavedQuery.first.id } }
+			expect(response.body).to include(ReactQueryBuilder::QbSavedQuery.first.title)
+			expect(response.body).to include(ReactQueryBuilder::QbSavedQuery.first.description)
+			expect(response).to render_template("show")
+		end
+
 	end
 
 	describe "destroy" do
