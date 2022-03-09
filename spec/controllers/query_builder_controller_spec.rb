@@ -55,36 +55,36 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 	describe "create" do
 
 		it 'should redirect to the QB Person Query if Saved Field Mappings is clicked' do
-			get :create, params: { query_type: "qb_person", commit: "Save Field Mappings" }
+			post :create, params: { query_type: "qb_person", commit: "Save Field Mappings" }
 			expect(response).to redirect_to('/query_builder/new?query_type=qb_person')
 		end
 
 		it 'should render the query form view if Run Query is clicked' do
-			get :create, params: { query_type: "qb_person", commit: "Run Query" }
+			post :create, params: { query_type: "qb_person", commit: "Run Query" }
 			expect(response.code).to render_template("query_form")
 		end
 
 		it 'should render Save Query form to save query for first time' do
-			get :create, params: { query_type: "qb_person",
+			post :create, params: { query_type: "qb_person",
 				                     commit: "Save  ",
 			                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.first.last_name + '"}}}}}}}' }
 			expect(response).to render_template("save_query")
 		end
 
 		it 'should render Save Query form to save existing query' do
-			get :create, params: { query_type: "qb_person",
+			post :create, params: { query_type: "qb_person",
 			                       commit: "Save  ",
 			                       id: "1" }
 			expect(response).to render_template("save_query")
 		end
 
 		it 'should save the Query as a new Query if appropriate parameters are sent' do
-			get :create, params: { query_type: "qb_person", react_query_builder_save_query: { title: "Sample Title", description: "Sample Description" } }
+			post :create, params: { query_type: "qb_person", react_query_builder_save_query: { title: "Sample Title", description: "Sample Description" } }
 			expect(response).to redirect_to('/query_builder')
 		end
 
 		it 'should return the query results as JSON if that is the requested format' do
-			get :create, { :format => 'json', :params => { query_type: "qb_person",
+			post :create, { :format => 'json', :params => { query_type: "qb_person",
 			                                               display_fields: '{"first_name":"1","middle_name":"1","last_name":"1"}',
 			                                               q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.last.last_name + '"}}}}}}}'} }
 
