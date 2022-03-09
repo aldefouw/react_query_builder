@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
@@ -53,7 +53,33 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 	end
 
 	describe "create" do
-		
+
+		it 'should redirect to the QB Person Query if Saved Field Mappings is clicked' do
+			get :create, params: { query_type: "qb_person", commit: "Save Field Mappings" }
+			expect(response).to redirect_to('/query_builder/new?query_type=qb_person')
+		end
+
+		it 'should render the query form view if Run Query is clicked' do
+			get :create, params: { query_type: "qb_person", commit: "Run Query" }
+			expect(response.code).to render_template("query_form")
+		end
+
+		it 'should render the Save Query form if appropriate parameters are sent' do
+			get :create, params: { query_type: "qb_person" }
+			expect(response).to render_template("save_query")
+		end
+
+		it 'should return the query results as JSON if that is the requested format' do
+			get :create, { :format => 'json', :params => { query_type: "qb_person",
+			                                               display_fields: '{"first_name":"1","middle_name":"1","last_name":"1"}',
+			                                               q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.last.last_name + '"}}}}}}}'} }
+
+			output = response.stream.instance_values["buf"].first
+
+			expect(output).to include(Person.last.last_name)
+			expect(JSON.parse(output).first.class).to eq(Hash)
+		end
+
 	end
 
 	describe "edit" do
