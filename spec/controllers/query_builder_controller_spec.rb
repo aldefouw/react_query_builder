@@ -64,9 +64,23 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response.code).to render_template("query_form")
 		end
 
-		it 'should render the Save Query form if appropriate parameters are sent' do
-			get :create, params: { query_type: "qb_person" }
+		it 'should render the Save Query form if we are specifying query for first time' do
+			get :create, params: { query_type: "qb_person",
+				                     commit: "Save  ",
+			                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.first.last_name + '"}}}}}}}' }
 			expect(response).to render_template("save_query")
+		end
+
+		it 'should save the existing query if appropriate parameters are sent' do
+			get :create, params: { query_type: "qb_person",
+			                       commit: "Save  ",
+			                       id: "1" }
+			expect(response).to render_template("save_query")
+		end
+
+		it 'should save the Query as a new Query if appropriate parameters are sent' do
+			get :create, params: { query_type: "qb_person", react_query_builder_save_query: { title: "Sample Title", description: "Sample Description" } }
+			expect(response).to redirect_to('/query_builder')
 		end
 
 		it 'should return the query results as JSON if that is the requested format' do

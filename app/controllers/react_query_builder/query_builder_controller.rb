@@ -93,11 +93,14 @@ module ReactQueryBuilder
 		end
 
 		def save_as_query_criteria
-			params[:react_query_builder_save_query] && @query_form.validate(params[:react_query_builder_save_query]) && params[:commit] != "Save  "
+			params[:react_query_builder_save_query] &&
+				@query_form.validate(params[:react_query_builder_save_query]) &&
+				params[:commit] != "Save  "
 		end
 
 		def save_query_criteria
-			params[:action] == "update" && params[:commit] == "Save  "
+			params[:action] == "update" &&
+				params[:commit] == "Save  "
 		end
 
 		def save_as_query_to_db
