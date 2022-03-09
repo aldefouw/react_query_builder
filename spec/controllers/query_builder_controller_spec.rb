@@ -64,14 +64,14 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response.code).to render_template("query_form")
 		end
 
-		it 'should render the Save Query form if we are specifying query for first time' do
+		it 'should render Save Query form to save query for first time' do
 			get :create, params: { query_type: "qb_person",
 				                     commit: "Save  ",
 			                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.first.last_name + '"}}}}}}}' }
 			expect(response).to render_template("save_query")
 		end
 
-		it 'should save the existing query if appropriate parameters are sent' do
+		it 'should render Save Query form to save existing query' do
 			get :create, params: { query_type: "qb_person",
 			                       commit: "Save  ",
 			                       id: "1" }
@@ -97,6 +97,20 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 	end
 
 	describe "edit" do
+
+		it 'should render the Query Form as Edit Person Query if we are accessing a saved query' do
+			get :edit, { params: { id: ReactQueryBuilder::QbSavedQuery.first.id } }
+			expect(response.body).to include('Edit Person Query')
+			expect(response.body).to include('First Name')
+			expect(response.body).to include('Middle Name')
+			expect(response.body).to include('Last Name')
+			expect(response).to render_template("query_form")
+		end
+
+		it 'should redirect to index if passed invalid ID' do
+			get :edit, { params: { id: 100 } }
+			expect(response).to redirect_to('/query_builder')
+		end
 
 	end
 
