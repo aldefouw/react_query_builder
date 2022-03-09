@@ -124,6 +124,22 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 	describe "destroy" do
 
+		it 'should redirect to index if passed invalid ID' do
+			delete :destroy, { params: { id: 100 } }
+			expect(response).to redirect_to('/query_builder')
+		end
+
+		it 'should redirect to the QB Person query page if delete is successful' do
+			delete :destroy, { params: { id: ReactQueryBuilder::QbSavedQuery.first.id } }
+			expect(response).to redirect_to('/query_builder?query_type=qb_person')
+		end
+
+		it 'should delete the specified query by ID' do
+			expect(ReactQueryBuilder::QbSavedQuery.count).to eq(1)
+			delete :destroy, { params: { id: ReactQueryBuilder::QbSavedQuery.first.id } }
+			expect(ReactQueryBuilder::QbSavedQuery.count).to eq(0)
+		end
+
 	end
 
 end
