@@ -37,7 +37,7 @@ RSpec.configure do |config|
 		ReactQueryBuilder::QbSavedQuery.create(title: "Test Query",
 		                                       description: "A test description",
 		                                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.last.last_name + '"}}}}}}}',
-		                                       display_fields: '{"first_name":"1","middle_name":"1",last_name":"1",}',
+		                                       display_fields: '{"first_name":"1","middle_name":"1",last_name":"1"}',
 		                                       query_type: "qb_person",
 		                                       last_run: DateTime.now,
 		                                       last_run_by: "rspec")
