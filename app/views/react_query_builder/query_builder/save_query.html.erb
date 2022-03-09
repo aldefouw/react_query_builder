@@ -38,7 +38,10 @@
       <div class="row form-group">
         <%= f.button :submit, "Save Query", class: 'btn btn-primary rqb_btn rqb_save_btn' %>
         &nbsp;
-        <%= link_to "Cancel", request.referrer, class: "btn btn-danger rqb_btn rqb_cancel_btn" %>
+        <%= link_to "Cancel", request.referrer.present? ?
+                                request.referer :
+                                react_query_builder_rails_engine.query_builder_index_url,
+                    class: "btn btn-danger rqb_btn rqb_cancel_btn" %>
       </div>
     </div>
   <% end %>
