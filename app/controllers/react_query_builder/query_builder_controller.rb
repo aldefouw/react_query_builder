@@ -51,9 +51,11 @@ module ReactQueryBuilder
 		private
 
 		def update_and_save_report
-			if params[:commit].include?("Save Field Mappings")
+			if params[:commit].present? &&
+				params[:commit].include?("Save Field Mappings")
 				save_field_mappings
-			elsif params[:commit].include?("Run Query")
+			elsif params[:commit].present? &&
+				params[:commit].include?("Run Query")
 				run_query
 			else
 				save_query
