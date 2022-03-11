@@ -59,6 +59,12 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response).to redirect_to('/query_builder/new?query_type=qb_person')
 		end
 
+		it 'should save Field Mappings if they are present' do
+			expect(ReactQueryBuilder::QbFieldMapping.first.labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name"})
+			post :create, params: { query_type: "qb_person", commit: "Save Field Mappings", field_mapping: {"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"} }
+			expect(ReactQueryBuilder::QbFieldMapping.first.labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"})
+		end
+
 		it 'should render the query form view if Run Query is clicked' do
 			post :create, params: { query_type: "qb_person", commit: "Run Query" }
 			expect(response.code).to render_template("query_form")
@@ -121,7 +127,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response).to redirect_to('/query_builder')
 		end
 
-		it 'should save the updated query if passed a valid ID, query paremeters, and display fields' do
+		it 'should save updated query criteria if passed a valid ID and query criteria' do
 			initial_last_name = Person.last.last_name
 
 			query_criteria = JSON.parse(ReactQueryBuilder::QbSavedQuery.first.q)
@@ -139,7 +145,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(JSON.parse(ReactQueryBuilder::QbSavedQuery.first.q).first.second['0']['c']['0']['v']['0']['value']).to eq(updated_last_name)
 		end
 
-		it 'should save the updated display fields if passed a valid ID, query paremeters, and display fields' do
+		it 'should save updated display fields if passed a valid ID and display fields' do
 			display_fields = ReactQueryBuilder::QbSavedQuery.first.display_fields
 			expect(display_fields).to include("first_name")
 			expect(display_fields).to include("last_name")
