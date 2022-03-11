@@ -100,7 +100,8 @@ module ReactQueryBuilder
 
 		def save_query_criteria
 			params[:action] == "update" &&
-				params[:commit] == "Save  "
+				params[:commit] == "Save  " &&
+				params[:id].present?
 		end
 
 		def save_as_query_to_db
@@ -110,8 +111,11 @@ module ReactQueryBuilder
 
 		def save_query_to_db
 			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
-			@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields])
-			query_redirect
+			if @query.present?
+				@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields])
+				return query_redirect
+			end
+			redirect_to react_query_builder_rails_engine.query_builder_index_path
 		end
 
 		def query_redirect

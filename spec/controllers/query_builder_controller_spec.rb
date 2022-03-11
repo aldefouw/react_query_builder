@@ -116,6 +116,47 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 	describe "update" do
 
+		it 'should redirect to index if passed invalid ID' do
+			patch :update, { params: { id: 100, commit: "Save  " } }
+			expect(response).to redirect_to('/query_builder')
+		end
+
+		it 'should save the updated query if passed a valid ID, query paremeters, and display fields' do
+			initial_last_name = Person.last.last_name
+
+			query_criteria = JSON.parse(ReactQueryBuilder::QbSavedQuery.first.q)
+			expect(query_criteria.first.second['0']['c']['0']['v']['0']['value']).to eq(initial_last_name)
+
+			updated_last_name = Person.first.last_name
+			query_criteria.first.second['0']['c']['0']['v']['0']['value'] = updated_last_name
+
+			patch :update, { params: {
+					id: ReactQueryBuilder::QbSavedQuery.first.id,
+	        commit: "Save  ",
+					q: query_criteria
+				}
+			}
+			expect(JSON.parse(ReactQueryBuilder::QbSavedQuery.first.q).first.second['0']['c']['0']['v']['0']['value']).to eq(updated_last_name)
+		end
+
+		it 'should save the updated display fields if passed a valid ID, query paremeters, and display fields' do
+			display_fields = ReactQueryBuilder::QbSavedQuery.first.display_fields
+			expect(display_fields).to include("first_name")
+			expect(display_fields).to include("last_name")
+			expect(display_fields).to include("middle_name")
+
+			patch :update, { params: {
+					id: ReactQueryBuilder::QbSavedQuery.first.id,
+					commit: "Save  ",
+					display_fields: {"first_name":"1"}
+				}
+			}
+
+			expect(ReactQueryBuilder::QbSavedQuery.first.display_fields).to include("first_name")
+			expect(ReactQueryBuilder::QbSavedQuery.first.display_fields).not_to include("middle_name")
+			expect(ReactQueryBuilder::QbSavedQuery.first.display_fields).not_to include("last_name")
+		end
+
 	end
 
 	describe "show" do
