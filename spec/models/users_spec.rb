@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe User, type: :model do
-	it "Is a valid user" do
-		user = User.create(name: "Don")
-		expect(user.valid?).to eq(true)
+RSpec.describe Person, type: :model do
+	it "creates a valid Person" do
+		person = Person.create(first_name: Faker::Name.first_name, last_name: Faker::Name.first_name)
+		expect(person.valid?).to eq(true)
 	end
 end

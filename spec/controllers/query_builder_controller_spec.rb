@@ -59,10 +59,10 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 			expect(response).to redirect_to('/query_builder/new?query_type=qb_person')
 		end
 
-		it 'should save Field Mappings if they are present' do
-			expect(ReactQueryBuilder::QbFieldMapping.first.labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name"})
+		it 'should save Field Mappings to the QB Field Mapping table if they are present' do
+			expect(ReactQueryBuilder::QbFieldMapping.find_by(model: "QbPerson").labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name"})
 			post :create, params: { query_type: "qb_person", commit: "Save Field Mappings", field_mapping: {"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"} }
-			expect(ReactQueryBuilder::QbFieldMapping.first.labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"})
+			expect(ReactQueryBuilder::QbFieldMapping.find_by(model: "QbPerson").labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"})
 		end
 
 		it 'should render the query form view if Run Query is clicked' do
@@ -128,10 +128,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 		end
 
 		it 'should save updated query criteria if passed a valid ID and query criteria' do
-			initial_last_name = Person.last.last_name
-
 			query_criteria = JSON.parse(ReactQueryBuilder::QbSavedQuery.first.q)
-			expect(query_criteria.first.second['0']['c']['0']['v']['0']['value']).to eq(initial_last_name)
 
 			updated_last_name = Person.first.last_name
 			query_criteria.first.second['0']['c']['0']['v']['0']['value'] = updated_last_name
@@ -194,9 +191,9 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 		end
 
 		it 'should delete the specified query by ID' do
-			expect(ReactQueryBuilder::QbSavedQuery.count).to eq(1)
+			initial_count = ReactQueryBuilder::QbSavedQuery.count
 			delete :destroy, { params: { id: ReactQueryBuilder::QbSavedQuery.first.id } }
-			expect(ReactQueryBuilder::QbSavedQuery.count).to eq(0)
+			expect(ReactQueryBuilder::QbSavedQuery.count).to eq(initial_count - 1)
 		end
 
 	end

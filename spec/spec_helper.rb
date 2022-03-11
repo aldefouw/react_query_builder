@@ -25,6 +25,7 @@ RSpec.configure do |config|
 	config.before(:each) do
 		Capybara.current_driver = ENV['HEADLESS'] == 'true' ? :selenium_headless : :selenium
 		Capybara.raise_server_errors = false
+		Capybara.server = :puma
 
 		#Create 20 fake people in the database
 		20.times do
@@ -41,17 +42,22 @@ RSpec.configure do |config|
 		                                       query_type: "qb_person",
 		                                       last_run: DateTime.now,
 		                                       last_run_by: "rspec")
+
+		DatabaseCleaner.start
+		DatabaseCleaner.strategy = :transaction
 	end
 
+	config.before(:each, :js => true) do
+		DatabaseCleaner.strategy = :truncation
+	end
+
+
 	config.before(:suite) do
-		DatabaseCleaner.strategy = :transaction
 		DatabaseCleaner.clean_with(:truncation)
 	end
 
-	config.around(:each) do |example|
-		DatabaseCleaner.cleaning do
-			example.run
-		end
+	config.append_after(:each) do
+		DatabaseCleaner.clean
 	end
 
 	# rspec-expectations config goes here. You can use an alternate
