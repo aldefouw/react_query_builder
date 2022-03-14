@@ -4,8 +4,11 @@ class CreatePeople < ActiveRecord::Migration[6.1]
       t.string :last_name
       t.string :first_name
       t.string :middle_name
+
       t.boolean :active
       t.boolean :trained
+
+      t.integer :status
 
       t.timestamps
     end

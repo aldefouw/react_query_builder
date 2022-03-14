@@ -34,6 +34,7 @@ RSpec.configure do |config|
 			Person.create(first_name: Faker::Name.first_name,
 			              last_name: Faker::Name.last_name,
 			              middle_name: Faker::Name.middle_name,
+			              status: rand(2),
 			              active: i % 2 == 0 ? true : false,
 			              trained: i % 2 == 0 ? false : true)
 		end

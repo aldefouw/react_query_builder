@@ -3,5 +3,6 @@ SELECT people.id,
        people.first_name,
        people.middle_name,
        people.active,
-       people.trained
+       people.trained,
+       people.status
 FROM people;
