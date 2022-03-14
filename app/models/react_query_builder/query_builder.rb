@@ -6,16 +6,8 @@ module ReactQueryBuilder
 
     self.abstract_class = true
 
-    def labels
-      self.field_mappings.labels
-    end
-
     def self.labels
       field_mappings.labels if field_mappings
-    end
-
-    def field_mappings
-      QbFieldMapping.find_by(model: self.class.demodulize.name)
     end
 
     def self.field_mappings
