@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
     t.string "last_name"
     t.string "first_name"
     t.string "middle_name"
+    t.boolean "active"
+    t.boolean "trained"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -44,7 +46,9 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
       SELECT people.id,
          people.last_name,
          people.first_name,
-         people.middle_name
+         people.middle_name,
+         people.active,
+         people.trained
   FROM people
   SQL
 end

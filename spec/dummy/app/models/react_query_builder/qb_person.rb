@@ -12,6 +12,10 @@ module ReactQueryBuilder
 			'Person'
 		end
 
+		def boolean_override
+			{:trained => ["Trained", "Untrained"]}
+		end
+
 	end
 
 end

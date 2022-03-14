@@ -27,12 +27,18 @@ RSpec.configure do |config|
 		Capybara.raise_server_errors = false
 		Capybara.server = :puma
 
+		Person.destroy_all
+
 		#Create 20 fake people in the database
-		20.times do
+		20.times do |i|
 			Person.create(first_name: Faker::Name.first_name,
 			              last_name: Faker::Name.last_name,
-			              middle_name: Faker::Name.middle_name)
+			              middle_name: Faker::Name.middle_name,
+			              active: i % 2 == 0 ? true : false,
+			              trained: i % 2 == 0 ? false : true)
 		end
+
+		ReactQueryBuilder::QbSavedQuery.destroy_all
 
 		#Save a Test Query to the Database that searches for the last Person
 		ReactQueryBuilder::QbSavedQuery.create(title: "Test Query",
@@ -48,12 +54,12 @@ RSpec.configure do |config|
 	end
 
 	config.before(:each, :js => true) do
-		DatabaseCleaner.strategy = :truncation
+		DatabaseCleaner.strategy = :transaction
 	end
 
 
 	config.before(:suite) do
-		DatabaseCleaner.clean_with(:truncation)
+		DatabaseCleaner.clean_with(:transaction)
 	end
 
 	config.append_after(:each) do

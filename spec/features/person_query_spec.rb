@@ -81,8 +81,7 @@ RSpec.describe 'Creating, Editing, and Removing a Person Query', type: :feature 
 		click_on "Run Query"
 		expect(react_table_html).to have_content("Id\nLast Name\nFirst Name\nMiddle Name")
 
-		id = find(text: 'Id', class: 'search-choice') #Find the ID field
-		within(id){ find('a') }.click #Click on the "X" on the "Id" field
+		remove_column("Id")
 
 		#See if the order has changed in the output after we run the query
 		click_on "Run Query"
@@ -124,6 +123,80 @@ RSpec.describe 'Creating, Editing, and Removing a Person Query', type: :feature 
 		#See if the order has changed in the output after we run the query
 		click_on "Run Query"
 		expect(page).to have_content("Id\nLast Name\nFirst Name\nMiddle Name")
+	end
+
+	scenario 'If I save my specific query, I am able to visit it again' do
+		visit 'query_builder/new?query_type=qb_person'
+
+		remove_column("Id")
+		remove_column("Middle Name")
+
+		click_on "Run Query"
+
+		#Needs to be wrapped to accept Javascript confirmation
+		page.accept_confirm { click_button "Save" }
+
+		#Attempt to save a query without a title - shouldn't be allowed!
+		click_on "Save Query"
+		expect(page).not_to have_content("Title Description Last Run User Action")
+
+		#Let's do it right now - Save Query
+		fill_in "Title", with: "First & Last Name Only"
+		fill_in "Description", with: "A test query to make sure it saves for us."
+		click_on "Save Query"
+
+		#Now it's okay to expect this
+		expect(page).to have_content("Title Description Last Run User Action")
+
+		#We should also see this
+		expect(page).to have_content("First & Last Name Only")
+		expect(page).to have_content("A test query to make sure it saves for us.")
+	end
+
+	scenario 'I am able to edit a saved query and save it as another query' do
+		visit 'query_builder'
+
+		#Click the last Run button
+		all('.rqb_run_btn').last.click
+
+		#Check for the expected buttons
+		expect(page).to have_content 'Edit Report'
+		expect(page).to have_content 'Export CSV'
+		expect(page).to have_content 'Export Excel'
+
+		#Click to Edit Report
+		click_on "Edit Report"
+		expect(page).to have_content "Edit Person Query"
+
+		#Select All Columns
+		click_on "Select All"
+
+		#Needs to be wrapped to accept Javascript confirmation
+		page.accept_confirm { click_button "Save As" }
+
+		#Let's do it right now - Save Query
+		fill_in "Title", with: "All Fields"
+		fill_in "Description", with: "A query with all fields saved"
+		click_on "Save Query"
+
+		#We should also see this
+		expect(page).to have_content("All Fields")
+		expect(page).to have_content("A query with all fields saved")
+
+		#Run the last report
+		all('.rqb_run_btn').last.click
+
+		#Expect these column headers
+		expect(page).to have_content("Id")
+		expect(page).to have_content("First Name")
+		expect(page).to have_content("Middle Name")
+		expect(page).to have_content("Last Name")
+
+		#Expect to see all of this column data
+		expect(react_table_html).to have_content(Person.last.id)
+		expect(react_table_html).to have_content(Person.last.first_name)
+		expect(react_table_html).to have_content(Person.last.middle_name)
+		expect(react_table_html).to have_content(Person.last.last_name)
 	end
 
 end

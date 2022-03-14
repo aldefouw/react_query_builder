@@ -53,21 +53,13 @@ module ReactQueryBuilder
         end
       end
 
-      if self.respond_to?(:pass)
-        define_singleton_method(:pass) do |*args|
-          super(*args).nil? ? "" : super(*args) ? "Pass" : "Fail"
+      if self.respond_to?(:boolean_override)
+        boolean_override.each do |k, v|
+          define_singleton_method(k) do |*args|
+            super(*args).nil? ? "" : super(*args) ? v[0] : v[1]
+          end
         end
       end
-
-      boolean_override.each do |k, v|
-        define_singleton_method(k) do |*args|
-          super(*args).nil? ? "" : super(*args) ? v[0] : v[1]
-        end
-      end
-    end
-
-    def boolean_override
-      []
     end
 
   end
