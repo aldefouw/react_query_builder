@@ -90,4 +90,40 @@ RSpec.describe 'Creating, Editing, and Removing a Person Query', type: :feature 
 		expect(react_table_html).not_to have_content("Id\nLast Name\nFirst Name\nMiddle Name\n")
 	end
 
+	scenario 'I remove all columns from the list of available columns' do
+		visit 'query_builder/new?query_type=qb_person'
+
+		#Establish initial columns displayed
+		click_on "Run Query"
+		expect(page).to have_content("Id\nLast Name\nFirst Name\nMiddle Name")
+
+		click_on "Clear All"
+
+		#See if the order has changed in the output after we run the query
+		click_on "Run Query"
+
+		#Have to use "page" here instead of "react_table_html" because the latter does not exist.
+		expect(page).not_to have_content("Id\nLast Name\nFirst Name\nMiddle Name\n")
+	end
+
+	scenario 'I add all columns to the list of available columns' do
+		visit 'query_builder/new?query_type=qb_person'
+
+		#Establish initial columns displayed
+		click_on "Clear All"
+
+		#See if the order has changed in the output after we run the query
+		click_on "Run Query"
+
+		#Have to use "page" here instead of "react_table_html" because the latter does not exist.
+		expect(page).not_to have_content("Id\nLast Name\nFirst Name\nMiddle Name\n")
+
+		#Establish initial columns displayed
+		click_on "Select All"
+
+		#See if the order has changed in the output after we run the query
+		click_on "Run Query"
+		expect(page).to have_content("Id\nLast Name\nFirst Name\nMiddle Name")
+	end
+
 end
