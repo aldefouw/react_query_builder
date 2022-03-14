@@ -13,11 +13,6 @@ module ReactQueryBuilder
     # **************************************#
 
     # Main title at top of form. Lets users know which view they are querying
-    def query_form_header(title, query_type)
-      title = content_tag(:div, content_tag(:h3, title), class: 'float-left')
-      button = content_tag(:div, link_to("Back", react_query_builder_rails_engine.query_builder_index_path(query_type: query_type), class: 'btn btn-dark rqb_btn rqb_back_btn'), class: 'float-right')
-      header = content_tag(:div, title + button, class: 'card-header')
-    end
 
     # Query Form Builder - interacts with ransack form builder
     def setup_search_form(builder)
