@@ -321,7 +321,40 @@ def boolean_override
 end
 ```
 
+---
+
 ### Type Overrides
+
+Need to coerce your displayed data into a different data type?  No problem.
+
+Use the following format with your QueryBuilder model:
+
+```
+		#Define your column types here
+		def self.type_overrides
+			{
+				:column_name_1 => :decimal,
+				:column_name_2 => :integer,
+				:column_name_3 => :string,
+			}
+		end
+		
+		#Define the behavior of how you data is displayed by defining your column names by hand
+		#You can use 'super' to inerhit the default behavior
+
+		def column_name_1
+		  t = super
+		  #Do whatever you want with the inherited behavior
+		end
+		
+		def column_name_2
+		  super  
+		end
+		
+		def column_name_3
+		  super	  
+		end
+```
 
 
 ### Rails 7 - Turbo Rails & Import Maps
