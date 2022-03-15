@@ -16,9 +16,11 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
     t.string "last_name"
     t.string "first_name"
     t.string "middle_name"
+    t.string "username"
     t.boolean "active"
     t.boolean "trained"
     t.time "account_timeout"
+    t.datetime "hire_date"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,9 +51,11 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
          people.last_name,
          people.first_name,
          people.middle_name,
+         people.username,
          people.active,
          people.trained,
          people.account_timeout,
+         people.hire_date,
          people.status
   FROM people
   SQL

@@ -60,7 +60,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 		end
 
 		it 'should save Field Mappings to the QB Field Mapping table if they are present' do
-			expect(ReactQueryBuilder::QbFieldMapping.find_by(model: "QbPerson").labels).to eq({"account_timeout"=>"Account Timeout", "active"=>"Active", "first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name", "status"=>"Status", "trained"=>"Trained"})
+			expect(ReactQueryBuilder::QbFieldMapping.find_by(model: "QbPerson").labels).to eq({"account_timeout"=>"Account Timeout", "active"=>"Active", "first_name"=>"First Name", "hire_date" => "Hire Date", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name", "status"=>"Status", "trained"=>"Trained", "username"=>"Username"})
 			post :create, params: { query_type: "qb_person", commit: "Save Field Mappings", field_mapping: {"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"} }
 			expect(ReactQueryBuilder::QbFieldMapping.find_by(model: "QbPerson").labels).to eq({"first_name"=>"First Name", "id"=>"Id", "last_name"=>"Last Name", "middle_name"=>"Middle Name or Initial"})
 		end

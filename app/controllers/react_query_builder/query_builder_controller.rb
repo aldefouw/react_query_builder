@@ -119,7 +119,7 @@ module ReactQueryBuilder
 		end
 
 		def query_redirect
-			@query.set_last_run_time(user: current_user) if defined?(current_user)
+			@query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
 			flash[:success] = "Query was successfully saved"
 			redirect_to react_query_builder_rails_engine.query_builder_index_path(query_type: @query.query_type)
 		end

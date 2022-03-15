@@ -37,6 +37,8 @@ RSpec.configure do |config|
 			              status: rand(2),
 			              active: i % 2 == 0 ? true : false,
 			              trained: i % 2 == 0 ? false : true,
+			              username: Faker::Internet.username,
+			              hire_date: Time.new(Time.now.year, 01, rand(1..31), 0, 0, 0),
 			              account_timeout: Time.new(Time.now.year, 01, 01, 0, rand(60), 0))
 		end
 

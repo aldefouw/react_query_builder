@@ -5,10 +5,14 @@ class CreatePeople < ActiveRecord::Migration[6.1]
       t.string :first_name
       t.string :middle_name
 
+      t.string :username
+
       t.boolean :active
       t.boolean :trained
 
       t.time :account_timeout
+
+      t.datetime :hire_date
 
       t.integer :status
 
