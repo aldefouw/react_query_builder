@@ -5,6 +5,7 @@ module ReactQueryBuilder
 
 end
 
+# :nocov:
 case ::Rails.version.to_s
 when /^7/
 	require 'react_query_builder/engine'
@@ -15,3 +16,4 @@ when /^5/
 else
 	fail 'Unsupported rails version'
 end
+# :nocov:
