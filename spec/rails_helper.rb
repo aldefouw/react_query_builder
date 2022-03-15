@@ -2,7 +2,12 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+	add_filter "spec/controllers"
+	add_filter "spec/models"
+	add_filter "spec/features"
+	add_filter "spec/support"
+end
 
 #We need to manually include our gems since they are NOT auto-loaded (no Gemfile in Dummy application)
 require 'rails/all'
