@@ -4,5 +4,6 @@ SELECT people.id,
        people.middle_name,
        people.active,
        people.trained,
+       people.account_timeout,
        people.status
 FROM people;

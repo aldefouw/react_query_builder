@@ -8,6 +8,8 @@ class CreatePeople < ActiveRecord::Migration[6.1]
       t.boolean :active
       t.boolean :trained
 
+      t.time :account_timeout
+
       t.integer :status
 
       t.timestamps

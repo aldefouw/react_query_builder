@@ -36,7 +36,8 @@ RSpec.configure do |config|
 			              middle_name: Faker::Name.middle_name,
 			              status: rand(2),
 			              active: i % 2 == 0 ? true : false,
-			              trained: i % 2 == 0 ? false : true)
+			              trained: i % 2 == 0 ? false : true,
+			              account_timeout: Time.new(Time.now.year, 01, 01, 0, rand(60), 0))
 		end
 
 		ReactQueryBuilder::QbSavedQuery.destroy_all
