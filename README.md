@@ -308,6 +308,22 @@ end
 ```
 ---
 
+### Boolean Overrides
+
+If you would prefer that your data is displayed with values other than true / false for Booleans within your data, you may specify those values in the following formating:
+
+```
+def boolean_override
+	{
+	   :column_name_1 => ["Value if True", "Value if False"],
+           :column_name_2 => ["Value if True", "Value if False"]
+        }
+end
+```
+
+### Type Overrides
+
+
 ### Rails 7 - Turbo Rails & Import Maps
 
 By default, Rails 7 comes with `@hotwired/turbo-rails` package and `importmaps` gem.  
