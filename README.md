@@ -310,7 +310,9 @@ end
 
 ### Boolean Overrides
 
-If you would prefer that your data is displayed with values other than true / false for Booleans within your data, you may specify those values in the following formating:
+If you would prefer that your data is displayed with values other than true / false for Booleans within your data, you may specify those override values.
+
+Use the following format within your QueryBuilder model (e.g. ReactQueryBuilder::QbPerson):
 
 ```
 def boolean_override
@@ -327,33 +329,33 @@ end
 
 Need to coerce your displayed data into a different data type?  No problem.
 
-Use the following format with your QueryBuilder model:
+Use the following format with your QueryBuilder model (e.g. ReactQueryBuilder::QbPerson).
 
 ```
-		#Define your column types here
-		def self.type_overrides
-			{
-				:column_name_1 => :decimal,
-				:column_name_2 => :integer,
-				:column_name_3 => :string,
-			}
-		end
-		
-		#Define the behavior of how you data is displayed by defining your column names by hand
-		#You can use 'super' to inerhit the default behavior
+#Define your column types here
+def self.type_overrides
+	{
+		:column_name_1 => :decimal,
+		:column_name_2 => :integer,
+		:column_name_3 => :string,
+	}
+end
 
-		def column_name_1
-		  t = super
-		  #Do whatever you want with the inherited behavior
-		end
-		
-		def column_name_2
-		  super  
-		end
-		
-		def column_name_3
-		  super	  
-		end
+#Define the behavior of how you data is displayed by defining your column names by hand
+#You can use 'super' to inerhit the default behavior
+
+def column_name_1
+  t = super
+  #Do whatever you want with the inherited behavior
+end
+
+def column_name_2
+  super  
+end
+
+def column_name_3
+  super	  
+end
 ```
 
 
