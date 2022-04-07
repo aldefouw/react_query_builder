@@ -15,7 +15,15 @@ module ReactQueryBuilder
 
 		def create
 			respond_to do |format|
-				format.html { update_and_save_report }
+				format.html do
+					if button_text_includes?(text: "Save Field Mappings")
+						save_field_mappings
+					elsif button_text_includes?(text: "Run Query")
+						run_query
+					else
+						save_query
+					end
+				end
 
 				format.json do
 					config_report(options: get_params, render: false, include_data: true)
@@ -29,7 +37,7 @@ module ReactQueryBuilder
 		end
 
 		def update
-			update_and_save_report
+			save_query
 		end
 
 		def show
@@ -50,23 +58,35 @@ module ReactQueryBuilder
 
 		private
 
-		def update_and_save_report
-			if params[:commit].present? &&
-				params[:commit].include?("Save Field Mappings")
-				save_field_mappings
-			elsif params[:commit].present? &&
-				params[:commit].include?("Run Query")
-				run_query
-			else
-				save_query
-			end
+		def button_text_includes?(text:)
+			params[:commit].present? && params[:commit].include?(text)
+		end
+
+		def query_form
+			params[:react_query_builder_save_query]
+		end
+
+		def save_button?
+			params[:commit] == "Save  "
+		end
+
+		def save_as_query_criteria?
+			query_form.present? && @query_form.validate(query_form) && !save_button?
+		end
+
+		def save_query_criteria?
+			update_page && save_button? && params[:id].present?
+		end
+
+		def update_page
+			params[:action] == "update"
 		end
 
 		def save_field_mappings
 			@mapping = QbFieldMapping.find_by(model: params[:query_type].classify)
 			qfm = @mapping.update(labels: params[:field_mapping])
 			flash[:success] = "Query Field Mappings successfully updated." if qfm
-			redirect_to params[:action] == "update" ?
+			redirect_to update_page ?
 				            react_query_builder_rails_engine.edit_query_builder_path(id: params[:id]) :
 				            react_query_builder_rails_engine.new_query_builder_path(query_type: params[:query_type])
 		end
@@ -83,25 +103,13 @@ module ReactQueryBuilder
 			@params_for_save = set_params
 			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
 
-			if save_as_query_criteria
+			if save_as_query_criteria?
 				save_as_query_to_db
-			elsif save_query_criteria
+			elsif save_query_criteria?
 				save_query_to_db
 			else
 				render 'save_query'
 			end
-		end
-
-		def save_as_query_criteria
-			params[:react_query_builder_save_query] &&
-				@query_form.validate(params[:react_query_builder_save_query]) &&
-				params[:commit] != "Save  "
-		end
-
-		def save_query_criteria
-			params[:action] == "update" &&
-				params[:commit] == "Save  " &&
-				params[:id].present?
 		end
 
 		def save_as_query_to_db
@@ -134,16 +142,12 @@ module ReactQueryBuilder
 				         ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id]) :
 				         ReactQueryBuilder::QbSavedQuery.new(options)
 
-			if params[:id] && @query.nil?
-				return redirect_to react_query_builder_rails_engine.query_builder_index_path
-			else
-				match_conditions = use_saved_params ? JSON.parse(@query.q) : options[:q]
-			end
+			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
 
 			@query_params = params[:q] ? params[:q].to_json : @query.q
 
 			@report = @query.current_query
-			@search = @report.ransack(match_conditions)
+			@search = @report.ransack(use_saved_params ? JSON.parse(@query.q) : options[:q])
 			@search.build_grouping unless @search.groupings.any?
 
 			@title = "#{params[:id] ? "Edit" : "New"} #{@report.title} Query"
@@ -165,8 +169,12 @@ module ReactQueryBuilder
 				{ url: react_query_builder_rails_engine.query_builder_index_path, html: { method: :post }  }
 		end
 
+		def initial_hash
+			Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+		end
+
 		def set_params
-			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+			cols = initial_hash
 			@cols = params[:display_fields]
 			params[:display_fields].each { |c| cols[c] = "1" } unless params[:display_fields].nil?
 			{
