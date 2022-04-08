@@ -147,7 +147,6 @@ module ReactQueryBuilder
 			@query = @query_report.query
 			@report = @query_report.report
 
-			@title = @query_report.title
 			@path = @query_report.path
 			@run_query = @query_report.run_query
 			@data = @query_report.data
