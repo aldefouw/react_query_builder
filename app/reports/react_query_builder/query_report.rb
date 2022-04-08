@@ -9,7 +9,7 @@ module ReactQueryBuilder
                    form_path:,
                    include_data: false)
 			@params = params
-			@options = options
+			@options = include_data ? get_params : set_params
 			@use_saved_params = use_saved_params
 			@form_path = form_path
 			@run_query = run_query
@@ -21,6 +21,29 @@ module ReactQueryBuilder
 			@params[:id] && @use_saved_params ?
 				QbSavedQuery.find_by(id: @params[:id]) :
 				QbSavedQuery.new(@options)
+		end
+
+		def initial_hash
+			Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+		end
+
+		def set_params
+			cols = initial_hash
+			@cols = @params[:display_fields]
+			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?
+			{
+				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,
+				q: @params[:q],
+				query_type: @params[:query_type]
+			}
+		end
+
+		def get_params
+			{
+				display_fields: @params[:display_fields].empty? ? {} : @params[:display_fields],
+				q: @params[:q].empty? ? {} : JSON.parse(@params[:q]),
+				query_type: @params[:query_type]
+			}
 		end
 
 		def data

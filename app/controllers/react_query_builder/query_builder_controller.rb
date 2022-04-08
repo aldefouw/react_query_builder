@@ -62,15 +62,11 @@ module ReactQueryBuilder
 			params[:commit].present? && params[:commit].include?(text)
 		end
 
-		def update_page
-			params[:action] == "update"
-		end
-
 		def save_field_mappings
 			@mapping = QbFieldMapping.find_by(model: params[:query_type].classify)
 			qfm = @mapping.update(labels: params[:field_mapping])
 			flash[:success] = "Query Field Mappings successfully updated." if qfm
-			redirect_to update_page ?
+			redirect_to params[:action] == "update" ?
 				            react_query_builder_rails_engine.edit_query_builder_path(id: params[:id]) :
 				            react_query_builder_rails_engine.new_query_builder_path(query_type: params[:query_type])
 		end
@@ -98,11 +94,11 @@ module ReactQueryBuilder
 		                  render: true,
 		                  include_data: false)
 			@query_report = ReactQueryBuilder::QueryReport.new(options: options,
-			                                       run_query: run_query,
-			                                       use_saved_params: use_saved_params,
-			                                       form_path: form_path,
-			                                       params: params,
-			                                       include_data: include_data)
+									                                       run_query: run_query,
+									                                       use_saved_params: use_saved_params,
+									                                       form_path: form_path,
+									                                       params: params,
+									                                       include_data: include_data)
 			@query = @query_report.query
 
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
