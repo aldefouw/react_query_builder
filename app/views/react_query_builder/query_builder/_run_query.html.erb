@@ -6,11 +6,11 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h4 class="float-left">Results</h4>
         <%= react_component("DownloadExcelQueryResultButton",
-                            { cols: @query.selected_cols, report: @query_report.report.title },
+                            { cols: @query_report.query.selected_cols, report: @query_report.report.title },
                             {id: 'download_excel_query_result_button', class: 'float-right mt-1 mb-1 '}) %>
 
         <%= react_component("DownloadQueryResultButton",
-                            { cols: @query.selected_cols, report: @query_report.report.title },
+                            { cols: @query_report.query.selected_cols, report: @query_report.report.title },
                             {id: 'download_query_result_button', class: 'float-right mt-1 mb-1'})%>
 
         <% if params[:action] != "show" && params[:action] != "create" %>
@@ -38,10 +38,10 @@
         <div id="query_table"></div>
         <div id="query_columns"
              url="<%= react_query_builder_rails_engine.query_builder_index_path %>.json"
-             data="<%= @query.react_table_cols %>"
-             query_type="<%= @query.query_type %>"
+             data="<%= @query_report.query.react_table_cols %>"
+             query_type="<%= @query_report.query.query_type %>"
              query_params="<%= @query_report.query_params %>"
-             display_fields="<%= @query.display_fields %>" ></div>
+             display_fields="<%= @query_report.query.display_fields %>" ></div>
       </div>
     </div>
   </div>

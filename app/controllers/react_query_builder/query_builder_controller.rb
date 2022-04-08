@@ -144,10 +144,9 @@ module ReactQueryBuilder
 			                                       params: params,
 			                                       include_data: include_data)
 			@query = @query_report.query
-
 			@path = @query_report.path
 
-			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
+			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
 			render 'query_form' if render
 		end
 
