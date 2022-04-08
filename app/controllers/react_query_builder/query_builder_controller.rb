@@ -97,20 +97,19 @@ module ReactQueryBuilder
 
 		def save_query
 			@path = form_path
-			@query = ReactQueryBuilder::QbSavedQuery.new
-			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
+
 
 			@save_report = SaveReport.new(params: params,
 								                   form_path: @path,
-								                   query: @query,
-								                   options: set_params,
-								                   query_form: @query_form)
+								                   options: set_params)
 
-			save = @save_report.save
+			@query = @save_report.query
+			@query_form = @save_report.query_form
+			query_save = @save_report.save
 
-			if save.present?
+			if query_save.present?
 				query_redirect
-			elsif save === false
+			elsif query_save === false
 				render 'save_query'
 			else
 				redirect_to react_query_builder_rails_engine.query_builder_index_path

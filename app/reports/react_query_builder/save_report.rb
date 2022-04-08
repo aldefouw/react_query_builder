@@ -2,13 +2,21 @@ module ReactQueryBuilder
 
 	class SaveReport < ApplicationController
 
-		def initialize(params:, form_path:, query:, query_form:, options:)
+		def initialize(params:, form_path:, options:)
 			@params = params
-			@query = query
-			@query_form = query_form
+			@query = ReactQueryBuilder::QbSavedQuery.new
+			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 			@path = form_path
 			@options = options
 			params_for_save
+		end
+
+		def query
+			@query
+		end
+
+		def query_form
+			@query_form
 		end
 
 		def params_for_save
@@ -53,10 +61,6 @@ module ReactQueryBuilder
 			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: @params[:id])
 			@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields]) if @query.present?
 			@query
-		end
-
-		def query_redirect
-			@query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
 		end
 
 		def flash
