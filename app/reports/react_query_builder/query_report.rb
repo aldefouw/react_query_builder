@@ -54,7 +54,7 @@ module ReactQueryBuilder
 		end
 
 		def labels
-			report.labels
+			report.labels if @query.present?
 		end
 
 		def query_params
