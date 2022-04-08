@@ -138,20 +138,19 @@ module ReactQueryBuilder
 		                  render: true,
 		                  include_data: false)
 
-			a = ReactQueryBuilder::QueryReport.new(options: options,
+			@query_report = ReactQueryBuilder::QueryReport.new(options: options,
 			                                       run_query: run_query,
 			                                       use_saved_params: use_saved_params,
 			                                       form_path: form_path,
 			                                       params: params,
 			                                       include_data: include_data)
-			@query = a.query
-			@query_params = a.query_params
-			@report = a.report
-			@search = a.search
-			@title = a.title
-			@path = a.path
-			@run_query = a.run_query
-			@data = a.data
+			@query = @query_report.query
+			@report = @query_report.report
+			@search = @query_report.search
+			@title = @query_report.title
+			@path = @query_report.path
+			@run_query = @query_report.run_query
+			@data = @query_report.data
 
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
 			render 'query_form' if render
