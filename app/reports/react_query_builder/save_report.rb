@@ -63,10 +63,6 @@ module ReactQueryBuilder
 			@query
 		end
 
-		def flash
-			"Query was successfully saved"
-		end
-
 		def save
 			if save_as_query_criteria?
 				save_as_query_to_db

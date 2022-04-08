@@ -62,22 +62,6 @@ module ReactQueryBuilder
 			params[:commit].present? && params[:commit].include?(text)
 		end
 
-		def query_form
-			params[:react_query_builder_save_query]
-		end
-
-		def save_button?
-			params[:commit] == "Save  "
-		end
-
-		def save_as_query_criteria?
-			query_form.present? && @query_form.validate(query_form) && !save_button?
-		end
-
-		def save_query_criteria?
-			update_page && save_button? && params[:id].present?
-		end
-
 		def update_page
 			params[:action] == "update"
 		end
@@ -97,8 +81,6 @@ module ReactQueryBuilder
 
 		def save_query
 			@path = form_path
-
-
 			@save_report = SaveReport.new(params: params,
 								                   form_path: @path,
 								                   options: set_params)
@@ -108,19 +90,12 @@ module ReactQueryBuilder
 			query_save = @save_report.save
 
 			if query_save.present?
-				query_redirect
+				@query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
+				flash[:success] = "Query was successfully saved"
 			elsif query_save === false
-				render 'save_query'
-			else
-				redirect_to react_query_builder_rails_engine.query_builder_index_path
+				return render 'save_query'
 			end
-
-		end
-
-		def query_redirect
-			@query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
-			flash[:success] = "Query was successfully saved"
-			redirect_to react_query_builder_rails_engine.query_builder_index_path(query_type: @query.query_type)
+			redirect_to react_query_builder_rails_engine.query_builder_index_path(@query.present? ? { query_type: @query.query_type} : {})
 		end
 
 		def config_report(options: set_params,
