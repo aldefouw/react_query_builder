@@ -119,27 +119,6 @@ module ReactQueryBuilder
 				redirect_to react_query_builder_rails_engine.query_builder_index_path
 			end
 
-			# if @save_report.save_as_query_criteria?
-			# 	save_as_query_to_db
-			# elsif @save_report.save_query_criteria?
-			# 	save_query_to_db
-			# else
-			# 	render 'save_query'
-			# end
-		end
-
-		def save_as_query_to_db
-			@query_form.save
-			query_redirect
-		end
-
-		def save_query_to_db
-			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
-			if @query.present?
-				@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields])
-				return query_redirect
-			end
-			redirect_to react_query_builder_rails_engine.query_builder_index_path
 		end
 
 		def query_redirect
