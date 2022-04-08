@@ -39,7 +39,6 @@ module ReactQueryBuilder
 																				     form_path: form_path,
 																				     params: params,
 																				     include_data: false)
-
 			@query = a.query
 			@query_params = a.query_params
 			@report = a.report
@@ -50,10 +49,7 @@ module ReactQueryBuilder
 			@data = a.data
 
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
-
 			render 'query_form'
-
-			#config_report(use_saved_params: true)
 		end
 
 		def update
@@ -158,29 +154,23 @@ module ReactQueryBuilder
 		                  render: true,
 		                  include_data: false)
 
-			@query = params[:id] && use_saved_params ?
-				         ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id]) :
-				         ReactQueryBuilder::QbSavedQuery.new(options)
+			a = ReactQueryBuilder::QueryReport.new(options: options,
+			                                       run_query: run_query,
+			                                       use_saved_params: use_saved_params,
+			                                       form_path: form_path,
+			                                       params: params,
+			                                       include_data: include_data)
+			@query = a.query
+			@query_params = a.query_params
+			@report = a.report
+			@search = a.search
+			@title = a.title
+			@path = a.path
+			@run_query = a.run_query
+			@data = a.data
 
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
-
-			@query_params = params[:q] ? params[:q].to_json : @query.q
-
-			@report = @query.current_query
-			@search = @report.ransack(use_saved_params ? JSON.parse(@query.q) : options[:q])
-			@search.build_grouping unless @search.groupings.any?
-
-			@title = "#{params[:id] ? "Edit" : "New"} #{@report.title} Query"
-			@path = form_path
-
-			@run_query = run_query
-			@data = result_data if include_data
-
 			render 'query_form' if render
-		end
-
-		def result_data
-			@report.results(@search)
 		end
 
 		def form_path
