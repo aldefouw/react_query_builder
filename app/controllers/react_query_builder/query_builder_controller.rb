@@ -80,22 +80,16 @@ module ReactQueryBuilder
 		end
 
 		def save_query
-			@path = form_path
-			@save_report = SaveReport.new(params: params,
-								                   form_path: @path,
-								                   options: set_params)
+			@save_report = SaveReport.new(params: params, form_path: form_path, options: set_params)
+			saved_query = @save_report.attempt_save
 
-			@query = @save_report.query
-			@query_form = @save_report.query_form
-			query_save = @save_report.save
-
-			if query_save.present?
-				@query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
-				flash[:success] = "Query was successfully saved"
-			elsif query_save === false
+			if saved_query.present?
+				@save_report.query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
+				flash[:success] = "Query was successfully saved."
+			elsif saved_query === false
 				return render 'save_query'
 			end
-			redirect_to react_query_builder_rails_engine.query_builder_index_path(@query.present? ? { query_type: @query.query_type} : {})
+			redirect_to react_query_builder_rails_engine.query_builder_index_path(@save_report.query.present? ? { query_type: @save_report.query.query_type} : {})
 		end
 
 		def config_report(options: set_params,

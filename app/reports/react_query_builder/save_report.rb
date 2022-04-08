@@ -28,10 +28,6 @@ module ReactQueryBuilder
 			@path
 		end
 
-		def button_text_includes?(text:)
-			@params[:commit].present? && @params[:commit].include?(text)
-		end
-
 		def query_form_params
 			@params[:react_query_builder_save_query]
 		end
@@ -63,7 +59,7 @@ module ReactQueryBuilder
 			@query
 		end
 
-		def save
+		def attempt_save
 			if save_as_query_criteria?
 				save_as_query_to_db
 			elsif save_query_criteria?
