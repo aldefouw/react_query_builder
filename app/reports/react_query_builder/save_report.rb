@@ -2,10 +2,10 @@ module ReactQueryBuilder
 
 	class SaveReport < ApplicationController
 
-		def initialize(params:, form_path:, params_for_save:)
+		def initialize(params:, form_path:, params_for_save:, query:, query_form:)
 			@params = params
-			@query = QbSavedQuery.new
-			@query_form = SaveQueryForm.new(@query)
+			@query = query
+			@query_form = query_form
 			@path = form_path
 			@params_for_save = params_for_save
 		end
@@ -18,7 +18,7 @@ module ReactQueryBuilder
 			@params[:commit].present? && @params[:commit].include?(text)
 		end
 
-		def query_form
+		def query_form_params
 			@params[:react_query_builder_save_query]
 		end
 
@@ -27,7 +27,7 @@ module ReactQueryBuilder
 		end
 
 		def save_as_query_criteria?
-			query_form.present? && @query_form.validate(query_form) && !save_button?
+			query_form_params.present? && @query_form.validate(query_form_params) && !save_button?
 		end
 
 		def save_query_criteria?
@@ -40,10 +40,13 @@ module ReactQueryBuilder
 
 		def save_as_query_to_db
 			@query_form.save
+			@query_form
 		end
 
 		def save_query_to_db
+			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: @params[:id])
 			@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields]) if @query.present?
+			@query
 		end
 
 		def query_redirect
@@ -55,8 +58,10 @@ module ReactQueryBuilder
 		end
 
 		def save
-			if save_as_query_criteria? || save_query_criteria?
-				true
+			if save_as_query_criteria?
+				save_as_query_to_db
+			elsif save_query_criteria?
+				save_query_to_db
 			else
 				false
 			end

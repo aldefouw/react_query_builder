@@ -103,13 +103,29 @@ module ReactQueryBuilder
 			@params_for_save = set_params
 			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
 
-			if save_as_query_criteria?
-				save_as_query_to_db
-			elsif save_query_criteria?
-				save_query_to_db
-			else
+			@save_report = SaveReport.new(params: params,
+								                   form_path: @path,
+								                   query: @query,
+								                   query_form: @query_form,
+								                   params_for_save: @params_for_save)
+
+			save = @save_report.save
+
+			if save.present?
+				query_redirect
+			elsif save === false
 				render 'save_query'
+			else
+				redirect_to react_query_builder_rails_engine.query_builder_index_path
 			end
+
+			# if @save_report.save_as_query_criteria?
+			# 	save_as_query_to_db
+			# elsif @save_report.save_query_criteria?
+			# 	save_query_to_db
+			# else
+			# 	render 'save_query'
+			# end
 		end
 
 		def save_as_query_to_db
