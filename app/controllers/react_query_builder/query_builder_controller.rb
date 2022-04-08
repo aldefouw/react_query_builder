@@ -100,14 +100,11 @@ module ReactQueryBuilder
 			@query = ReactQueryBuilder::QbSavedQuery.new
 			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 
-			@params_for_save = set_params
-			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
-
 			@save_report = SaveReport.new(params: params,
 								                   form_path: @path,
 								                   query: @query,
-								                   query_form: @query_form,
-								                   params_for_save: @params_for_save)
+								                   options: set_params,
+								                   query_form: @query_form)
 
 			save = @save_report.save
 

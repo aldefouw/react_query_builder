@@ -2,12 +2,18 @@ module ReactQueryBuilder
 
 	class SaveReport < ApplicationController
 
-		def initialize(params:, form_path:, params_for_save:, query:, query_form:)
+		def initialize(params:, form_path:, query:, query_form:, options:)
 			@params = params
 			@query = query
 			@query_form = query_form
 			@path = form_path
-			@params_for_save = params_for_save
+			@options = options
+			params_for_save
+		end
+
+		def params_for_save
+			@params_for_save = @options
+			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
 		end
 
 		def path
