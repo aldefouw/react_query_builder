@@ -11,10 +11,6 @@ module ReactQueryBuilder
 			params_for_save
 		end
 
-		def columns
-			@params[:display_fields]
-		end
-
 		def set_params
 			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
 			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?

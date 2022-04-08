@@ -9,7 +9,7 @@ module ReactQueryBuilder
 
 		def new
 			ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
-				config_report(run_query: false) :
+				query_report(run_query: false) :
 				redirect_to(react_query_builder_rails_engine.query_builder_index_path)
 		end
 
@@ -19,21 +19,21 @@ module ReactQueryBuilder
 					if params[:commit].present? && params[:commit].include?("Save Field Mappings")
 						save_field_mappings
 					elsif params[:commit].present? && params[:commit].include?("Run Query")
-						run_query
+						query_report(run_query: params[:display_fields] ? true : false)
 					else
 						save_query
 					end
 				end
 
 				format.json do
-					config_report(render: false, include_data: true)
+					query_report(render: false, include_data: true)
 					render json: @query_report.data.map { |row| @query.display_row(row) }
 				end
 			end
 		end
 
 		def edit
-			config_report(use_saved_params: true)
+			query_report(use_saved_params: true)
 		end
 
 		def update
@@ -41,7 +41,7 @@ module ReactQueryBuilder
 		end
 
 		def show
-			config_report(use_saved_params: true, render: false)
+			query_report(use_saved_params: true, render: false)
 		end
 
 		def destroy
@@ -59,7 +59,7 @@ module ReactQueryBuilder
 		private
 
 		def save_field_mappings
-			@mapping = QbFieldMapping.find_by(model: params[:query_type].classify)
+			@mapping = ReactQueryBuilder::QbFieldMapping.find_by(model: params[:query_type].classify)
 			qfm = @mapping.update(labels: params[:field_mapping])
 			flash[:success] = "Query Field Mappings successfully updated." if qfm
 			redirect_to params[:action] == "update" ?
@@ -67,15 +67,11 @@ module ReactQueryBuilder
 				            react_query_builder_rails_engine.new_query_builder_path(query_type: params[:query_type])
 		end
 
-		def run_query
-			config_report(run_query: params[:display_fields] ? true : false)
-		end
-
 		def save_query
-			@save_report = SaveReport.new(params: params,
+			@save_report = ReactQueryBuilder::SaveReport.new(params: params,
 			                              form_path: form_path)
 			saved_query = @save_report.attempt_save
-			@cols = @save_report.columns
+
 			if saved_query.present?
 				@save_report.query.set_last_run_time(user: defined?(current_user) ? current_user : nil)
 				flash[:success] = "Query was successfully saved."
@@ -85,16 +81,16 @@ module ReactQueryBuilder
 			redirect_to react_query_builder_rails_engine.query_builder_index_path(@save_report.query.present? ? { query_type: @save_report.query.query_type} : {})
 		end
 
-		def config_report(run_query: true,
+		def query_report(run_query: true,
 		                  use_saved_params: false,
 		                  render: true,
 		                  include_data: false)
-			@query_report = QueryReport.new(run_query: run_query,
+			@query_report = ReactQueryBuilder::QueryReport.new(run_query: run_query,
                                       use_saved_params: use_saved_params,
                                       form_path: form_path,
                                       params: params,
                                       include_data: include_data)
-			@cols = @query_report.columns
+
 			@query = @query_report.query
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
 			render 'query_form' if render
