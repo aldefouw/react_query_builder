@@ -5,42 +5,58 @@ module ReactQueryBuilder
 		def initialize(options:,
                    run_query: true,
                    use_saved_params: false,
-                   render: true,
                    params:,
                    form_path:,
-                   include_data: false,
-                   engine:)
+                   include_data: false)
+			@params = params
+			@options = options
+			@use_saved_params = use_saved_params
+			@form_path = form_path
+			@run_query = run_query
+			@include_data = include_data
+			@query = query
+		end
 
-			@query = params[:id] && use_saved_params ?
-				         ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id]) :
-				         ReactQueryBuilder::QbSavedQuery.new(options)
+		def data
+			report.results(search) if @include_data
+		end
 
+		def run_query
+			@run_query if @query.present?
+		end
 
-			if @query.present?
-				@query_params = params[:q] ? params[:q].to_json : @query.q
-				@report = @query.current_query
-				@search = @report.ransack(use_saved_params ? JSON.parse(@query.q) : options[:q])
-				@search.build_grouping unless @search.groupings.any?
+		def path
+			@form_path
+		end
 
-				@title = "#{params[:id] ? "Edit" : "New"} #{@report.title} Query"
-				@path = form_path
-
-				@run_query = run_query
-				@data = @report.results(@search) if include_data
-			else
-				@query = nil
-				@query_params = nil
-				@report = nil
-				@search = nil
-				@title = nil
-				@path = nil
-				@run_query = nil
-				@data = nil
+		def title
+			if @query.present? && @query.current_query.present?
+				"#{@params[:id] ? "Edit" : "New"} #{@query.current_query.title} Query"
 			end
 		end
 
-		def test
-			return @query, @query_params, @report, @search, @title, @path, @run_query, @data
+		def search
+			if @query.present?
+				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @options[:q])
+				s.build_grouping unless s.groupings.any?
+				s
+			end
+		end
+
+		def report
+			@query.current_query if @query.present?
+		end
+
+		def query_params
+			if @query.present?
+				@params[:q] ? @params[:q].to_json : @query.q
+			end
+		end
+
+		def query
+			@params[:id] && @use_saved_params ?
+				ReactQueryBuilder::QbSavedQuery.find_by(id: @params[:id]) :
+				ReactQueryBuilder::QbSavedQuery.new(@options)
 		end
 
 	end
