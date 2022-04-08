@@ -27,7 +27,7 @@ module ReactQueryBuilder
 
 				format.json do
 					config_report(options: get_params, render: false, include_data: true)
-					render json: @data.map { |row| @query.display_row(row) }
+					render json: @query_report.data.map { |row| @query.display_row(row) }
 				end
 			end
 		end
@@ -148,8 +148,6 @@ module ReactQueryBuilder
 			@report = @query_report.report
 
 			@path = @query_report.path
-			@run_query = @query_report.run_query
-			@data = @query_report.data
 
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
 			render 'query_form' if render

@@ -17,6 +17,12 @@ module ReactQueryBuilder
 			@query = query
 		end
 
+		def query
+			@params[:id] && @use_saved_params ?
+				QbSavedQuery.find_by(id: @params[:id]) :
+				QbSavedQuery.new(@options)
+		end
+
 		def data
 			report.results(search) if @include_data
 		end
@@ -51,12 +57,6 @@ module ReactQueryBuilder
 			if @query.present?
 				@params[:q] ? @params[:q].to_json : @query.q
 			end
-		end
-
-		def query
-			@params[:id] && @use_saved_params ?
-				ReactQueryBuilder::QbSavedQuery.find_by(id: @params[:id]) :
-				ReactQueryBuilder::QbSavedQuery.new(@options)
 		end
 
 	end
