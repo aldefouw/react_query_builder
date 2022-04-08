@@ -146,7 +146,7 @@ module ReactQueryBuilder
 			                                       include_data: include_data)
 			@query = @query_report.query
 			@report = @query_report.report
-			@search = @query_report.search
+
 			@title = @query_report.title
 			@path = @query_report.path
 			@run_query = @query_report.run_query
