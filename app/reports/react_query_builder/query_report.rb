@@ -37,7 +37,7 @@ module ReactQueryBuilder
 
 		def title
 			if @query.present? && @query.current_query.present?
-				"#{@params[:id] ? "Edit" : "New"} #{@query.current_query.title} Query"
+				"#{@params[:id] ? "Edit" : "New"} #{report.title} Query"
 			end
 		end
 
@@ -51,6 +51,10 @@ module ReactQueryBuilder
 
 		def report
 			@query.current_query if @query.present?
+		end
+
+		def labels
+			report.labels
 		end
 
 		def query_params

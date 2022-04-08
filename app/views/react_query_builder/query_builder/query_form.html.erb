@@ -42,7 +42,7 @@
           </th>
         </tr>
         </thead>
-         <% @report.labels.each do |n| %>
+         <% @query_report.labels.each do |n| %>
            <tr>
               <td style="text-align: right; padding: 10px;">
                 <%= n.first %>
@@ -58,7 +58,7 @@
         <%= f.submit "Save Field Mappings", class: "btn btn-success mx-auto" %>
         <p>&nbsp;</p>
         <p>The aliases defined are mapped to the view's columns.</p>
-        <p>Note that these aliases are <strong>GLOBAL</strong> for the <strong><%= @report.title %></strong> report.</p>
+        <p>Note that these aliases are <strong>GLOBAL</strong> for the <strong><%= @query_report.report.title %></strong> report.</p>
       </div>
       </div>
     </div>

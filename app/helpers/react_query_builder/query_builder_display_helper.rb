@@ -36,7 +36,7 @@ module ReactQueryBuilder
     end
 
     def report_labels
-      @report.labels
+      @query_report.labels
     end
 
     def report_keys
@@ -61,8 +61,8 @@ module ReactQueryBuilder
 
     def posted_columns(cols)
       options = {}
-      cols.each { |c| options[c] = @report.labels[c] }
-      report_keys.each { |l| options[l] = @report.labels[l] unless cols.include?(l) }
+      cols.each { |c| options[c] = report_labels[c] }
+      report_keys.each { |l| options[l] = report_labels[l] unless cols.include?(l) }
       options
     end
 

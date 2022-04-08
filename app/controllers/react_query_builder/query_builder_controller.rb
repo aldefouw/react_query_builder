@@ -137,7 +137,6 @@ module ReactQueryBuilder
 		                  use_saved_params: false,
 		                  render: true,
 		                  include_data: false)
-
 			@query_report = ReactQueryBuilder::QueryReport.new(options: options,
 			                                       run_query: run_query,
 			                                       use_saved_params: use_saved_params,
@@ -145,7 +144,6 @@ module ReactQueryBuilder
 			                                       params: params,
 			                                       include_data: include_data)
 			@query = @query_report.query
-			@report = @query_report.report
 
 			@path = @query_report.path
 
