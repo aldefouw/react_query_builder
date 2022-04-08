@@ -2,13 +2,27 @@ module ReactQueryBuilder
 
 	class SaveReport < ApplicationController
 
-		def initialize(params:, form_path:, options:)
+		def initialize(params:, form_path:)
 			@params = params
 			@query = ReactQueryBuilder::QbSavedQuery.new
 			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 			@path = form_path
-			@options = options
+			@options = set_params
 			params_for_save
+		end
+
+		def columns
+			@params[:display_fields]
+		end
+
+		def set_params
+			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?
+			{
+				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,
+				q: @params[:q],
+				query_type: @params[:query_type]
+			}
 		end
 
 		def query

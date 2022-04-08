@@ -2,8 +2,7 @@ module ReactQueryBuilder
 
 	class QueryReport < ApplicationController
 
-		def initialize(options:,
-                   run_query: true,
+		def initialize(run_query: true,
                    use_saved_params: false,
                    params:,
                    form_path:,
@@ -23,13 +22,12 @@ module ReactQueryBuilder
 				QbSavedQuery.new(@options)
 		end
 
-		def initial_hash
-			Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+		def columns
+			@params[:display_fields]
 		end
 
 		def set_params
-			cols = initial_hash
-			@cols = @params[:display_fields]
+			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
 			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?
 			{
 				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,

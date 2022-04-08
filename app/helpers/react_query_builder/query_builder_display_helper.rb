@@ -44,13 +44,13 @@ module ReactQueryBuilder
     end
 
     def posted_columns?
-      @cols.present? || edit_query?
+      @query_report.columns.present? || edit_query?
     end
 
     def select_posted_columns
       edit_query? ?
         edit_query_columns :
-        @cols
+        @query_report.columns
     end
 
     def select_list
