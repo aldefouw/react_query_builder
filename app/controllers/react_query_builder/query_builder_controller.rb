@@ -33,7 +33,24 @@ module ReactQueryBuilder
 		end
 
 		def edit
-			config_report(use_saved_params: true)
+			a = ReactQueryBuilder::QueryReport.new(options: set_params,
+			                                       run_query: true,
+																				     use_saved_params: true,
+																				     render: true,
+																				     form_path: form_path,
+																				     params: params,
+																				     include_data: false,
+																				     engine: react_query_builder_rails_engine)
+
+
+
+			@query, @query_params, @report, @search, @title, @path, @run_query, @data = a.test
+
+			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query.nil?
+
+			render 'query_form'
+
+			#config_report(use_saved_params: true)
 		end
 
 		def update
