@@ -9,7 +9,7 @@ module ReactQueryBuilder
 
 		def new
 			ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
-				query_report(run_query: false) :
+				query_type(type: __method__) :
 				redirect_to(react_query_builder_rails_engine.query_builder_index_path)
 		end
 
@@ -33,7 +33,7 @@ module ReactQueryBuilder
 		end
 
 		def edit
-			query_report(use_saved_params: true)
+			query_type(type: __method__)
 		end
 
 		def update
@@ -41,7 +41,7 @@ module ReactQueryBuilder
 		end
 
 		def show
-			query_report(use_saved_params: true, render: false)
+			query_type(type: __method__, render: false)
 		end
 
 		def destroy
@@ -81,12 +81,22 @@ module ReactQueryBuilder
 			redirect_to react_query_builder_rails_engine.query_builder_index_path(@save_report.query.present? ? { query_type: @save_report.query.query_type} : {})
 		end
 
+		def query_type(type:, render: true)
+			@query_report = "ReactQueryBuilder::#{type.to_s.titleize}Report".constantize.new(engine: react_query_builder_rails_engine,
+			                                                                                 form_path: form_path,
+			                                                                                 params: params)
+			@query = @query_report.query
+			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
+			render 'query_form' if render
+		end
+
 		def query_report(run_query: true,
 		                  use_saved_params: false,
 		                  render: true,
 		                  include_data: false)
 			@query_report = ReactQueryBuilder::QueryReport.new(run_query: run_query,
                                       use_saved_params: use_saved_params,
+																		  engine: react_query_builder_rails_engine,
                                       form_path: form_path,
                                       params: params,
                                       include_data: include_data)

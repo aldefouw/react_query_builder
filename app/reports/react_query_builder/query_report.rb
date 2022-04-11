@@ -1,18 +1,20 @@
 module ReactQueryBuilder
 
-	class QueryReport < ApplicationController
+	class QueryReport
 
-		def initialize(run_query: true,
-                   use_saved_params: false,
+		def initialize(run_query:,
+                   use_saved_params:,
                    params:,
                    form_path:,
-                   include_data: false)
+                   engine:,
+                   include_data:)
 			@params = params
 			@options = include_data ? get_params : set_params
 			@use_saved_params = use_saved_params
 			@form_path = form_path
 			@run_query = run_query
 			@include_data = include_data
+			@engine = engine
 			@query = query
 		end
 
@@ -83,6 +85,12 @@ module ReactQueryBuilder
 				@params[:q] ? @params[:q].to_json : @query.q
 			end
 		end
+
+		# def form_path
+		# 	@params[:id] ?
+		# 		{ url: @engine.query_builder_path(id: @params[:id]), html: { method: :patch } } :
+		# 		{ url: @engine.query_builder_index_path, html: { method: :post }  }
+		# end
 
 	end
 
