@@ -9,7 +9,7 @@ module ReactQueryBuilder
 
 		def new
 			ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
-				query_type(type: __method__) :
+				query_report(type: __method__) :
 				redirect_to(react_query_builder_rails_engine.query_builder_index_path)
 		end
 
@@ -19,21 +19,21 @@ module ReactQueryBuilder
 					if params[:commit].present? && params[:commit].include?("Save Field Mappings")
 						save_field_mappings
 					elsif params[:commit].present? && params[:commit].include?("Run Query")
-						query_report(run_query: params[:display_fields] ? true : false)
+						query_report(type: __method__)
 					else
 						save_query
 					end
 				end
 
 				format.json do
-					query_report(render: false, include_data: true)
+					query_report(type: __method__, format: :json, render: false)
 					render json: @query_report.data.map { |row| @query.display_row(row) }
 				end
 			end
 		end
 
 		def edit
-			query_type(type: __method__)
+			query_report(type: __method__)
 		end
 
 		def update
@@ -41,7 +41,7 @@ module ReactQueryBuilder
 		end
 
 		def show
-			query_type(type: __method__, render: false)
+			query_report(type: __method__, render: false)
 		end
 
 		def destroy
@@ -81,29 +81,15 @@ module ReactQueryBuilder
 			redirect_to react_query_builder_rails_engine.query_builder_index_path(@save_report.query.present? ? { query_type: @save_report.query.query_type} : {})
 		end
 
-		def query_type(type:, render: true)
-			@query_report = "ReactQueryBuilder::#{type.to_s.titleize}Report".constantize.new(engine: react_query_builder_rails_engine,
-			                                                                                 form_path: form_path,
-			                                                                                 params: params)
+		def query_report(type:, render: true, format: :html)
+			@query_report = current_report(type: type, format: format).new(form_path: form_path, params: params)
 			@query = @query_report.query
 			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
 			render 'query_form' if render
 		end
 
-		def query_report(run_query: true,
-		                  use_saved_params: false,
-		                  render: true,
-		                  include_data: false)
-			@query_report = ReactQueryBuilder::QueryReport.new(run_query: run_query,
-                                      use_saved_params: use_saved_params,
-																		  engine: react_query_builder_rails_engine,
-                                      form_path: form_path,
-                                      params: params,
-                                      include_data: include_data)
-
-			@query = @query_report.query
-			return redirect_to react_query_builder_rails_engine.query_builder_index_path if params[:id] && @query_report.query.nil?
-			render 'query_form' if render
+		def current_report(type:, format:)
+			"ReactQueryBuilder::#{type.to_s.titleize}#{format == :json ? "Json" : ""}Report".constantize
 		end
 
 		def form_path

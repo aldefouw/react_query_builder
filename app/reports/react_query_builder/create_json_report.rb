@@ -1,12 +1,12 @@
 module ReactQueryBuilder
 
-	class ShowReport < QueryReport
+	class CreateJsonReport < QueryReport
 
 		def initialize(run_query: true,
-		               use_saved_params: true,
+		               use_saved_params: false,
 		               params:,
 		               form_path:,
-		               include_data: false)
+		               include_data: true)
 			super
 		end
 

@@ -6,15 +6,13 @@ module ReactQueryBuilder
                    use_saved_params:,
                    params:,
                    form_path:,
-                   engine:,
                    include_data:)
 			@params = params
 			@options = include_data ? get_params : set_params
 			@use_saved_params = use_saved_params
-			@form_path = form_path
+			@form_path = form_path.present? ? form_path : form_path_set
 			@run_query = run_query
 			@include_data = include_data
-			@engine = engine
 			@query = query
 		end
 
@@ -85,12 +83,6 @@ module ReactQueryBuilder
 				@params[:q] ? @params[:q].to_json : @query.q
 			end
 		end
-
-		# def form_path
-		# 	@params[:id] ?
-		# 		{ url: @engine.query_builder_path(id: @params[:id]), html: { method: :patch } } :
-		# 		{ url: @engine.query_builder_index_path, html: { method: :post }  }
-		# end
 
 	end
 

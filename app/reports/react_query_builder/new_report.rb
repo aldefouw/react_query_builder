@@ -6,7 +6,6 @@ module ReactQueryBuilder
 		               use_saved_params: false,
 		               params:,
 		               form_path:,
-		               engine:,
 		               include_data: false)
 			super
 		end
