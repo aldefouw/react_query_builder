@@ -10,7 +10,7 @@ module ReactQueryBuilder
 			@params = params
 			@options = include_data ? get_params : set_params
 			@use_saved_params = use_saved_params
-			@form_path = form_path.present? ? form_path : form_path_set
+			@form_path = form_path
 			@run_query = run_query
 			@include_data = include_data
 			@query = query
