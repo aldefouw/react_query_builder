@@ -72,14 +72,14 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 		it 'should render Save Query form to save query for first time' do
 			post :create, params: { query_type: "qb_person",
-				                     commit: "Save  ",
+				                     commit: "Save",
 			                       q: '{"g":{"0":{"m":"and","c":{"0":{"a":{"0":{"name":"last_name"}},"p":"cont","v":{"0":{"value":"' + Person.first.last_name + '"}}}}}}}' }
 			expect(response).to render_template("save_query")
 		end
 
 		it 'should render Save Query form to save existing query' do
 			post :create, params: { query_type: "qb_person",
-			                       commit: "Save  ",
+			                       commit: "Save",
 			                       id: "1" }
 			expect(response).to render_template("save_query")
 		end
@@ -123,7 +123,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 	describe "update" do
 
 		it 'should redirect to index if passed invalid ID' do
-			patch :update, { params: { id: 100, commit: "Save  " } }
+			patch :update, { params: { id: 100, commit: "Save" } }
 			expect(response).to redirect_to('/query_builder')
 		end
 
@@ -135,7 +135,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 			patch :update, { params: {
 					id: ReactQueryBuilder::QbSavedQuery.first.id,
-	        commit: "Save  ",
+	        commit: "Save",
 					q: query_criteria
 				}
 			}
@@ -150,7 +150,7 @@ RSpec.describe ReactQueryBuilder::QueryBuilderController, type: :controller do
 
 			patch :update, { params: {
 					id: ReactQueryBuilder::QbSavedQuery.first.id,
-					commit: "Save  ",
+					commit: "Save",
 					display_fields: {"first_name":"1"}
 				}
 			}

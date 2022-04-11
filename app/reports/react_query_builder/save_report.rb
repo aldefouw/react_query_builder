@@ -43,7 +43,10 @@ module ReactQueryBuilder
 		end
 
 		def save_button?
-			@params[:commit] == "Save  "
+			@params.key?(:commit) &&
+			!@params[:commit].include?("Save As") &&
+			!@params[:commit].include?("Save Query") &&
+			@params[:commit].include?("Save")
 		end
 
 		def save_as_query_criteria?

@@ -10,7 +10,7 @@ module ReactQueryBuilder
 		def new
 			ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
 				query_report(type: __method__) :
-				redirect_to(react_query_builder_rails_engine.query_builder_index_path)
+				redirect_to(rqb.query_builder_index_path)
 		end
 
 		def create
@@ -48,18 +48,18 @@ module ReactQueryBuilder
 			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
 			if @query.nil?
 				flash[:warning] = "This query does not exist."
-				redirect_to rqb_index_path
+				redirect_to rqb.query_builder_index_path
 			else
 				@query.delete
-				flash[:success] = "#{@query.title} query successfully deleted"
-				redirect_to rqb_index_path(query_type: @query.query_type)
+				flash[:success] = "#{@query.title} query successfully deleted."
+				redirect_to rqb.query_builder_index_path(query_type: @query.query_type)
 			end
 		end
 
 		private
 
-		def rqb_index_path(params = {})
-			react_query_builder_rails_engine.query_builder_index_path(params)
+		def rqb
+			react_query_builder_rails_engine
 		end
 
 		def save_field_mappings
@@ -67,8 +67,8 @@ module ReactQueryBuilder
 			qfm = @mapping.update(labels: params[:field_mapping])
 			flash[:success] = "Query Field Mappings successfully updated." if qfm
 			redirect_to params[:action] == "update" ?
-				            react_query_builder_rails_engine.edit_query_builder_path(id: params[:id]) :
-				            react_query_builder_rails_engine.new_query_builder_path(query_type: params[:query_type])
+				            rqb.edit_query_builder_path(id: params[:id]) :
+				            rqb.new_query_builder_path(query_type: params[:query_type])
 		end
 
 		def save_report
@@ -81,13 +81,14 @@ module ReactQueryBuilder
 			elsif saved_query === false
 				return render 'save_query'
 			end
-			redirect_to rqb_index_path(@save_report.query.present? ? { query_type: @save_report.query.query_type} : {})
+
+			redirect_to rqb.query_builder_index_path(@save_report.query.present? ? {query_type: @save_report.query.query_type} : {})
 		end
 
 		def query_report(type:, render: true, format: :html)
 			@query_report = current_report(type: type, format: format).new(form_path: form_path, params: params)
 			@query = @query_report.query
-			return redirect_to rqb_index_path if params[:id] && @query_report.query.nil?
+			return redirect_to rqb.query_builder_index_path if params[:id] && @query_report.query.nil?
 			render 'query_form' if render
 		end
 
@@ -97,8 +98,8 @@ module ReactQueryBuilder
 
 		def form_path
 			params[:id] ?
-				{ url: react_query_builder_rails_engine.query_builder_path(id: params[:id]), html: { method: :patch } } :
-				{ url: rqb_index_path, html: { method: :post }  }
+				{ url: rqb.query_builder_path(id: params[:id]), html: { method: :patch } } :
+				{ url: rqb.query_builder_index_path, html: { method: :post }  }
 		end
 
 	end
