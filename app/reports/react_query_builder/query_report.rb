@@ -14,6 +14,7 @@ module ReactQueryBuilder
 			@run_query = run_query
 			@include_data = include_data
 			@query = query
+			@search_params = search_params
 		end
 
 		def query
@@ -23,14 +24,12 @@ module ReactQueryBuilder
 		end
 
 		def title
-			if @query.present? && @query.current_query.present?
-				"#{@params[:id] ? "Edit" : "New"} #{report.title} Query"
-			end
+			"#{@params[:id] ? "Edit" : "New"} #{report.title} Query" if report.present?
 		end
 
 		def search
 			if @query.present?
-				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @query_params[:q])
+				s = report.ransack(@search_params)
 				s.build_grouping unless s.groupings.any?
 				s
 			end
@@ -64,6 +63,12 @@ module ReactQueryBuilder
 
 		def data
 			report.results(search) if @include_data
+		end
+
+		def search_params
+			@use_saved_params && @query.present? ?
+				JSON.parse(@query.q) :
+				@query_params[:q]
 		end
 
 	end

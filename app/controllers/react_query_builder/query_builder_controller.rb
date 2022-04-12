@@ -88,7 +88,7 @@ module ReactQueryBuilder
     def query_report(type:, render: true, format: :html)
       @query_report = current_report(type: type, format: format).new(form_path: form_path, params: params)
       @query = @query_report.query
-      return redirect_to rqb.query_builder_index_path if params[:id] && @query_report.query.nil?
+      return redirect_to rqb.query_builder_index_path if params[:id] && @query.nil?
       render 'query_form' if render
     end
 
