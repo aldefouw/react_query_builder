@@ -14,7 +14,6 @@ module ReactQueryBuilder
       @run_query = run_query
       @include_data = include_data
       @query = query
-      @search_params = search_params
     end
 
     def query
@@ -29,8 +28,8 @@ module ReactQueryBuilder
 
     def search
       if @query.present?
-        r = report.ransack(@search_params)
-        r.build_grouping unless s.groupings.any?
+        r = report.ransack(search_params)
+        r.build_grouping unless r.groupings.any?
         r
       end
     end
@@ -63,6 +62,10 @@ module ReactQueryBuilder
 
     def data
       report.results(search) if @include_data
+    end
+
+    def include_data
+      @include_data
     end
 
     def search_params

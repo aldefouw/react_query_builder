@@ -27,7 +27,7 @@ module ReactQueryBuilder
 
         format.json do
           query_report(type: __method__, format: :json, render: false)
-          render json: @query_report.data.map { |row| @query.display_row(row) }
+          render json: result_data.map { |row| @query.display_row(row) } if @query_report.include_data
         end
       end
     end
@@ -88,8 +88,14 @@ module ReactQueryBuilder
     def query_report(type:, render: true, format: :html)
       @query_report = current_report(type: type, format: format).new(form_path: form_path, params: params)
       @query = @query_report.query
+      @report = @query_report.report
+      @search = @query_report.search
       return redirect_to rqb.query_builder_index_path if params[:id] && @query.nil?
       render 'query_form' if render
+    end
+
+    def result_data
+      @query_report.data
     end
 
     def current_report(type:, format:)
