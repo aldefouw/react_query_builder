@@ -15,10 +15,10 @@ module ReactQueryBuilder
 
 		def set_params
 			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
-			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?
+			@params[:display_fields].each{|c| cols[c] = "1"} unless @params[:display_fields].nil?
 			{
 				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,
-				q: @params[:q],
+				q: @params[:q].nil? ? {} : @params[:q].to_json,
 				query_type: @params[:query_type]
 			}
 		end
@@ -27,14 +27,6 @@ module ReactQueryBuilder
 			{
 				display_fields: @params[:display_fields].nil? ? {} : @params[:display_fields],
 				q: @params[:q].nil? ? {} : JSON.parse(@params[:q]),
-				query_type: @params[:query_type]
-			}
-		end
-
-		def get_empty_params
-			{
-				display_fields: @params[:display_fields].empty? ? {} : @params[:display_fields],
-				q: @params[:q].empty? ? {} : JSON.parse(@params[:q]),
 				query_type: @params[:query_type]
 			}
 		end
