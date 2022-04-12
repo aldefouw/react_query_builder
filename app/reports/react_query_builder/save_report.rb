@@ -4,7 +4,7 @@ module ReactQueryBuilder
 
     def initialize(params:, form_path:)
       @params = params
-      @path = form_path
+      @form_path = form_path
       @query_params = QueryParams.new(params: params).params
       @query = QbSavedQuery.new
       @query_form = SaveQueryForm.new(@query)
@@ -29,7 +29,7 @@ module ReactQueryBuilder
     end
 
     def path
-      @path
+      @form_path
     end
 
     private

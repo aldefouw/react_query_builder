@@ -29,9 +29,9 @@ module ReactQueryBuilder
 
     def search
       if @query.present?
-        s = report.ransack(@search_params)
-        s.build_grouping unless s.groupings.any?
-        s
+        r = report.ransack(@search_params)
+        r.build_grouping unless s.groupings.any?
+        r
       end
     end
 
