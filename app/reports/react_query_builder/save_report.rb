@@ -1,11 +1,11 @@
 module ReactQueryBuilder
 
-	class SaveReport < ApplicationController
+	class SaveReport
 
 		def initialize(params:, form_path:)
 			@params = params
 			@path = form_path
-			@params_for_save = params_for_save
+			@params_for_save = ReportParams.new(params: params).options
 			@query = ReactQueryBuilder::QbSavedQuery.new
 			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 		end
