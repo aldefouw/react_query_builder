@@ -22,9 +22,51 @@ module ReactQueryBuilder
 				QbSavedQuery.new(@options)
 		end
 
+		def title
+			if @query.present? && @query.current_query.present?
+				"#{@params[:id] ? "Edit" : "New"} #{report.title} Query"
+			end
+		end
+
+		def search
+			if @query.present?
+				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @options[:q])
+				s.build_grouping unless s.groupings.any?
+				s
+			end
+		end
+
+		def path
+			@form_path
+		end
+
+		def labels
+			report.labels if @query.present?
+		end
+
+		def report
+			@query.current_query if @query.present?
+		end
+
 		def columns
 			@params[:display_fields]
 		end
+
+		def run_query
+			@run_query if @query.present?
+		end
+
+		def query_params
+			if @query.present?
+				@params[:q] ? @params[:q].to_json : @query.q
+			end
+		end
+
+		def data
+			report.results(search) if @include_data
+		end
+
+		private
 
 		def set_params
 			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
@@ -42,46 +84,6 @@ module ReactQueryBuilder
 				q: @params[:q].empty? ? {} : JSON.parse(@params[:q]),
 				query_type: @params[:query_type]
 			}
-		end
-
-		def data
-			report.results(search) if @include_data
-		end
-
-		def run_query
-			@run_query if @query.present?
-		end
-
-		def path
-			@form_path
-		end
-
-		def title
-			if @query.present? && @query.current_query.present?
-				"#{@params[:id] ? "Edit" : "New"} #{report.title} Query"
-			end
-		end
-
-		def search
-			if @query.present?
-				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @options[:q])
-				s.build_grouping unless s.groupings.any?
-				s
-			end
-		end
-
-		def report
-			@query.current_query if @query.present?
-		end
-
-		def labels
-			report.labels if @query.present?
-		end
-
-		def query_params
-			if @query.present?
-				@params[:q] ? @params[:q].to_json : @query.q
-			end
 		end
 
 	end
