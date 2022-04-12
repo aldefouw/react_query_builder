@@ -1,20 +1,8 @@
 module ReactQueryBuilder
 
-  # -------------------------------
-  #     QueryBuilderFormHelper
-  # -------------------------------
-  # => Methods for query form
-  # => Ransack required methods
-
   module QueryBuilderFormHelper
 
-    # **************************************#
-    #       QUERY FORM USER INTERFACE       #
-    # **************************************#
-
-    # Main title at top of form. Lets users know which view they are querying
-
-    # Query Form Builder - interacts with ransack form builder
+    # Query Form Builder - interacts with Ransack Form Builder
     def setup_search_form(builder)
       fields = builder.grouping_fields builder.object.new_grouping,
                                        object_name: 'new_object_name', child_index: 'new_grouping' do |f|
@@ -43,24 +31,30 @@ module ReactQueryBuilder
       fields = f.send(name, new_object, child_index: "new_#{type}") do |builder|
         render(name, f: builder)
       end
-      tag.button button_labels[button], class: "qb_add_fields btn btn-sm #{button_class[button]} rqb_btn", 'data-field-type': type,
+      tag.button button_labels[button],
+                 class: "qb_add_fields btn btn-sm #{button_class[button]} rqb_btn",
+                 'data-field-type': type,
                  'data-content': "#{fields}"
     end
 
-    # Button - removes single query criteria row from query form
+    # Button - Removes single query criteria row from Query Form
     def button_to_remove_fields
       btn = tag.button 'Remove', class: "qb_remove_fields btn #{button_class[:remove_fields]}"
       content_tag(:div, btn, class: 'col-2')
     end
 
-    # Button - removes entire grouping panel from query form
+    # Button - Removes entire grouping panel from Query Form
     def button_to_remove_grouping
-      tag.button 'Remove Group', class: "qb_remove_fields btn btn-sm #{button_class[:remove_group]} float-right rqb_btn rqb_remove_group_btn"
+      tag.button 'Remove Group',
+                 class: "qb_remove_fields btn btn-sm #{button_class[:remove_group]} float-right rqb_btn rqb_remove_group_btn"
     end
 
-    # Button - adds a nested grouping panel to query form
+    # Button - Adds a nested grouping panel to Query Form
     def button_to_nest_fields(type, button=nil)
-      tag.button button_labels[button], class: "qb_nest_fields btn btn-sm #{button_class[button]} rqb_btn", 'data-field-type': type, 'data-nest': true
+      tag.button button_labels[button],
+                 class: "qb_nest_fields btn btn-sm #{button_class[button]} rqb_btn",
+                 'data-field-type': type,
+                 'data-nest': true
     end
 
     # Button - Labels for query form buttons
@@ -90,12 +84,12 @@ module ReactQueryBuilder
     end
 
     # Classes applied to the value input field in a single query condition
-    # => Note - 'fields' class required for interfacting with Ransack
+    # => Note - 'fields' class required for interfacing with Ransack
     def value_fields
       %w( fields value col-3).freeze
     end
 
-    # => Predicates available to use in each query condition
+    # Predicates available to use in each query condition
     def app_predicates
       %i( cont eq not_eq matches does_not_match lt lteq gt gteq not_cont start not_start end not_end )
     end

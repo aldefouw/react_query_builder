@@ -1,11 +1,5 @@
 module ReactQueryBuilder
 
-  # -------------------------------
-  #    QueryBuilderDisplayHelper
-  # -------------------------------
-  # => Display fields (checkboxes)
-  # => Results table (React table)
-
   module QueryBuilderDisplayHelper
 
     # Accepts a list of model attributes & returns hash of attribute and label for checkboxes
@@ -13,25 +7,63 @@ module ReactQueryBuilder
       select_list.map { |x| { attribute_name: x.first, label: x.second } }
     end
 
+    def new_query?
+      params[:action] == "new"
+    end
+
+    def edit_query?
+      params[:action] == "edit"
+    end
+
+    def existing_report?
+      existing_report_columns.count > 0
+    end
+
+    def parsed_display_fields
+      JSON.parse(@query.display_fields)
+    end
+
+    def new_query_columns
+      report_keys
+    end
+
+    def edit_query_columns
+      parsed_display_fields.keys
+    end
+
+    def existing_report_columns
+      parsed_display_fields.map(&:first)
+    end
+
+    def report_labels
+      @query_report.labels
+    end
+
+    def report_keys
+      report_labels.keys
+    end
+
+    def posted_columns?
+      @query_report.columns.present? || edit_query?
+    end
+
+    def select_posted_columns
+      edit_query? ?
+        edit_query_columns :
+        @query_report.columns
+    end
+
     def select_list
-      if @cols.present? && params[:action] != "edit"
-        posted_columns(@cols)
-      elsif params[:action] == "edit"
-        posted_columns(JSON.parse(@query.display_fields).keys)
-      else
-        existing_columns
-      end
+      posted_columns? ?
+        posted_columns(select_posted_columns) :
+        report_labels
     end
 
     def posted_columns(cols)
       options = {}
-      cols.each { |c| options[c] = @report.labels[c] }
-      @report.labels.keys.each { |l| options[l] = @report.labels[l] unless cols.include?(l) }
+      cols.each { |c| options[c] = report_labels[c] }
+      report_keys.each { |l| options[l] = report_labels[l] unless cols.include?(l) }
       options
-    end
-
-    def existing_columns
-      @report.labels
     end
 
     def display_select(items)
@@ -42,12 +74,12 @@ module ReactQueryBuilder
     end
 
     def selected
-      if params[:action] == "edit"
-        JSON.parse(@query.display_fields).keys
-      elsif JSON.parse(@query.display_fields).map(&:first).count > 0
-        JSON.parse(@query.display_fields).map(&:first)
-      elsif params[:action] == "new"
-        @report.labels.keys #Show all when you come to a new query
+      if edit_query?
+        edit_query_columns
+      elsif existing_report?
+        existing_report_columns
+      elsif new_query?
+        new_query_columns
       else
         params[:display_fields]
       end

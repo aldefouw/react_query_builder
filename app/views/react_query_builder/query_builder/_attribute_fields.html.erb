@@ -11,7 +11,7 @@ end
              'data-type': f.class,
              escape_attributes: false do
 
-              f.dropdown_attributes(@report.labels,
+              f.dropdown_attributes(@query_report.labels,
                                     {
                                       class: 'form-control form-control-sm qb-attr-select',
                                       id: 'qb-attribute-select'
@@ -21,6 +21,3 @@ end
 <script>
   $(".qb-attr-select").chosen();
 </script>
-
-
-

@@ -39,7 +39,9 @@ module ReactQueryBuilder
 
     def qb_labels
       unless query_type_unavailable
-        qb_field_mapping.labels.class == String ? JSON.parse(qb_field_mapping.labels) : qb_field_mapping.labels
+        qb_field_mapping.labels.class == String ?
+          JSON.parse(qb_field_mapping.labels) :
+          qb_field_mapping.labels
       end
     end
 
@@ -48,7 +50,9 @@ module ReactQueryBuilder
     end
 
     def qb_field_mapping
-      existing_field_mapping.nil? ? create_initial_mapping : existing_field_mapping unless query_type_unavailable
+      existing_field_mapping.nil? ?
+        create_initial_mapping :
+        existing_field_mapping unless query_type_unavailable
     end
 
     def existing_field_mapping
