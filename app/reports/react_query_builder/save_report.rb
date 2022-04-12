@@ -5,9 +5,9 @@ module ReactQueryBuilder
 		def initialize(params:, form_path:)
 			@params = params
 			@path = form_path
-			@params_for_save = ReportParams.new(params: params).options
-			@query = ReactQueryBuilder::QbSavedQuery.new
-			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
+			@query_params = QueryParams.new(params: params).params
+			@query = QbSavedQuery.new
+			@query_form = SaveQueryForm.new(@query)
 		end
 
 		def query
@@ -63,8 +63,8 @@ module ReactQueryBuilder
 		end
 
 		def save_query_to_db
-			@query = ReactQueryBuilder::QbSavedQuery.find_by(id: @params[:id])
-			@query.update(q: @params_for_save[:q], display_fields: @params_for_save[:display_fields]) if @query.present?
+			@query = QbSavedQuery.find_by(id: @params[:id])
+			@query.update(@query_params.except!(:query_type)) if @query.present?
 			@query
 		end
 

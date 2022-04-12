@@ -8,7 +8,7 @@ module ReactQueryBuilder
                    form_path:,
                    include_data:)
 			@params = params
-			@options = ReportParams.new(include_data: include_data, params: params).options
+			@query_params = QueryParams.new(params: params, include_data: include_data).params
 			@use_saved_params = use_saved_params
 			@form_path = form_path
 			@run_query = run_query
@@ -19,7 +19,7 @@ module ReactQueryBuilder
 		def query
 			@params[:id] && @use_saved_params ?
 				QbSavedQuery.find_by(id: @params[:id]) :
-				QbSavedQuery.new(@options)
+				QbSavedQuery.new(@query_params)
 		end
 
 		def title
@@ -30,7 +30,7 @@ module ReactQueryBuilder
 
 		def search
 			if @query.present?
-				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @options[:q])
+				s = report.ransack(@use_saved_params ? JSON.parse(@query.q) : @query_params[:q])
 				s.build_grouping unless s.groupings.any?
 				s
 			end

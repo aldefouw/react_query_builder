@@ -1,14 +1,14 @@
 module ReactQueryBuilder
 
-	class ReportParams
+	class QueryParams
 
 		def initialize(params:, include_data: false)
 			@params = params
-			@options = include_data ? get_params : set_params
+			@query_params = include_data ? get_params : set_params
 		end
 
-		def options
-			@options
+		def params
+			@query_params
 		end
 
 		private

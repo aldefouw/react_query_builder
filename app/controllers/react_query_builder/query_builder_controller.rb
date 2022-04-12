@@ -3,12 +3,12 @@ module ReactQueryBuilder
   class QueryBuilderController < ApplicationController
 
     def index
-      @queries = ReactQueryBuilder::QbSavedQuery.all
-      @reports = ReactQueryBuilder::QueryBuilder.reports
+      @queries = QbSavedQuery.all
+      @reports = QueryBuilder.reports
     end
 
     def new
-      ReactQueryBuilder::QueryBuilder.report_included?(params[:query_type]) ?
+      QueryBuilder.report_included?(params[:query_type]) ?
         query_report(type: __method__) :
         redirect_to(rqb.query_builder_index_path)
     end
@@ -45,7 +45,7 @@ module ReactQueryBuilder
     end
 
     def destroy
-      @query = ReactQueryBuilder::QbSavedQuery.find_by(id: params[:id])
+      @query = QbSavedQuery.find_by(id: params[:id])
       if @query.nil?
         flash[:warning] = "This query does not exist."
         redirect_to rqb.query_builder_index_path
@@ -63,7 +63,7 @@ module ReactQueryBuilder
     end
 
     def save_field_mappings
-      @mapping = ReactQueryBuilder::QbFieldMapping.find_by(model: params[:query_type].classify)
+      @mapping = QbFieldMapping.find_by(model: params[:query_type].classify)
       qfm = @mapping.update(labels: params[:field_mapping])
       flash[:success] = "Query Field Mappings successfully updated." if qfm
       redirect_to params[:action] == "update" ?
@@ -72,7 +72,7 @@ module ReactQueryBuilder
     end
 
     def save_report
-      @save_report = ReactQueryBuilder::SaveReport.new(params: params, form_path: form_path)
+      @save_report = SaveReport.new(params: params, form_path: form_path)
       saved_query = @save_report.attempt_save
 
       if saved_query.present?
