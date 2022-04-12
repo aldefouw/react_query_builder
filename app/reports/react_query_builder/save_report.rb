@@ -7,18 +7,7 @@ module ReactQueryBuilder
 			@query = ReactQueryBuilder::QbSavedQuery.new
 			@query_form = ReactQueryBuilder::SaveQueryForm.new(@query)
 			@path = form_path
-			@options = set_params
-			params_for_save
-		end
-
-		def set_params
-			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
-			@params[:display_fields].each { |c| cols[c] = "1" } unless @params[:display_fields].nil?
-			{
-				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,
-				q: @params[:q],
-				query_type: @params[:query_type]
-			}
+			@params_for_save = params_for_save
 		end
 
 		def query
@@ -30,8 +19,13 @@ module ReactQueryBuilder
 		end
 
 		def params_for_save
-			@params_for_save = @options
-			@params_for_save[:q] = @params_for_save[:q].nil? ? {} : @params_for_save[:q].to_json
+			cols = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
+			@params[:display_fields].each {|c| cols[c] = "1"} unless @params[:display_fields].nil?
+			{
+				display_fields: @params[:display_fields].nil? ? {} : cols.to_json,
+				q: @params[:q].nil? ? {} : @params[:q].to_json,
+				query_type: @params[:query_type]
+			}
 		end
 
 		def path
