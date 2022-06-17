@@ -69,7 +69,7 @@ module ReactQueryBuilder
     end
 
     def search_params
-      @use_saved_params && @query.present? ?
+      @use_saved_params ?
         JSON.parse(@query.q) :
         @query_params[:q]
     end

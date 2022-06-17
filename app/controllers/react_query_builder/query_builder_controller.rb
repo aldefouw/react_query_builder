@@ -16,13 +16,7 @@ module ReactQueryBuilder
     def create
       respond_to do |format|
         format.html do
-          if params[:commit].present? && params[:commit].include?("Save Field Mappings")
-            save_field_mappings
-          elsif params[:commit].present? && params[:commit].include?("Run Query")
-            query_report(type: __method__)
-          else
-            save_report
-          end
+          update_and_save
         end
 
         format.json do
@@ -37,7 +31,7 @@ module ReactQueryBuilder
     end
 
     def update
-      save_report
+      update_and_save
     end
 
     def show
@@ -57,6 +51,16 @@ module ReactQueryBuilder
     end
 
     private
+
+    def update_and_save
+      if params[:commit].present? && params[:commit].include?("Save Field Mappings")
+        save_field_mappings
+      elsif params[:commit].present? && params[:commit].include?("Run Query")
+        query_report(type: 'run')
+      else
+        save_report
+      end
+    end
 
     def rqb
       react_query_builder_rails_engine
