@@ -199,4 +199,28 @@ RSpec.describe 'Creating, Editing, and Removing a Person Query', type: :feature 
 		expect(react_table_html).to have_content(Person.last.last_name)
 	end
 
+	scenario 'If I run the query on the edit page, the query criteria stays' do
+
+		visit 'query_builder/new?query_type=qb_person'
+
+		click_on "Add Query Criteria"
+
+		chosen_select('div#qb_attribute_select_chosen', "Last Name")
+		chosen_select('div#qb_predicates_chosen', "equals")
+		find('div.fields input.form-control').set(Person.last.last_name)
+
+		click_on "Run Query"
+		page.accept_confirm { click_button "Save" }
+
+		#Let's do it right now - Save Query
+		fill_in "Title", with: "First & Last Name Only"
+		fill_in "Description", with: "A test query to make sure it saves for us."
+
+		click_on "Save Query"
+
+		#Now it's okay to expect this
+		expect(page).to have_content("Title Description Last Run User Action")
+
+	end
+
 end
