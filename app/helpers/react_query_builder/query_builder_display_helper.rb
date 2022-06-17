@@ -28,7 +28,9 @@ module ReactQueryBuilder
     end
 
     def edit_query_columns
-      parsed_display_fields.keys
+      parsed_display_fields.is_a?(Array) ?
+        parsed_display_fields :
+        parsed_display_fields.keys
     end
 
     def existing_report_columns
