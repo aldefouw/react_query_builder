@@ -22,6 +22,8 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
 
+	config.use_transactional_fixtures = false
+
 	config.before(:each) do
 		Capybara.current_driver = ENV['HEADLESS'] == 'true' ? :selenium_headless : :selenium
 		Capybara.raise_server_errors = false
@@ -54,16 +56,10 @@ RSpec.configure do |config|
 		                                       last_run_by: "rspec")
 
 		DatabaseCleaner.start
-		DatabaseCleaner.strategy = :transaction
 	end
-
-	config.before(:each, :js => true) do
-		DatabaseCleaner.strategy = :transaction
-	end
-
 
 	config.before(:suite) do
-		DatabaseCleaner.clean_with(:transaction)
+		DatabaseCleaner.strategy = :truncation
 	end
 
 	config.append_after(:each) do
