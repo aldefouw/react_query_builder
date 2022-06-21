@@ -199,4 +199,51 @@ RSpec.describe 'Creating, Editing, and Removing a Person Query', type: :feature 
 		expect(react_table_html).to have_content(Person.last.last_name)
 	end
 
+	scenario 'If I sort a numerical column, it is sorted numerically' do
+		visit 'query_builder'
+
+		#steps for numeric sort
+
+	end
+
+	scenario 'If I create a query, save it, and then edit it, it works' do
+		visit 'query_builder'
+
+		#Click the last Run button
+		all('.rqb_run_btn').last.click
+
+		#Check for the expected buttons
+		expect(page).to have_content 'Edit Report'
+		expect(page).to have_content 'Export CSV'
+		expect(page).to have_content 'Export Excel'
+
+		#Click to Edit Report
+		click_on "Edit Report"
+		expect(page).to have_content "Edit Person Query"
+
+		#Select All Columns
+		click_on "Select All"
+
+		#Needs to be wrapped to accept Javascript confirmation
+		page.accept_confirm { click_button "Save As" }
+
+		#Let's do it right now - Save Query
+		fill_in "Title", with: "All Fields"
+		fill_in "Description", with: "A query with all fields saved"
+		click_on "Save Query"
+
+		#We should also see this
+		expect(page).to have_content("All Fields")
+		expect(page).to have_content("A query with all fields saved")
+
+		#Edit the last report
+		all('.rqb_edit_btn').last.click
+
+		#Check for the expected buttons
+		expect(page).to have_content 'Edit Person QUery'
+		expect(page).to have_content 'All Fields'
+		expect(page).to have_content 'Export CSV'
+		expect(page).to have_content 'Export Excel'
+	end
+
 end
