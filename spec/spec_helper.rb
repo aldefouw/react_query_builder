@@ -31,8 +31,31 @@ RSpec.configure do |config|
 
 		Person.destroy_all
 
+
 		#Create 20 fake people in the database
-		20.times do |i|
+		[
+			16704,
+			40031,
+			56661.0,
+			76303,
+			104480,
+			51563,
+			332473,
+			26889,
+			44406,
+			75755,
+			75755,
+			87951,
+			93334,
+			60454,
+			187671,
+			38828,
+			57750,
+			80476,
+			80476,
+			80476,
+			96803
+		].each do |i|
 			Person.create(first_name: Faker::Name.first_name,
 			              last_name: Faker::Name.last_name,
 			              middle_name: Faker::Name.middle_name,
@@ -41,7 +64,8 @@ RSpec.configure do |config|
 			              trained: i % 2 == 0 ? false : true,
 			              username: Faker::Internet.username,
 			              hire_date: Time.new(Time.now.year, 01, rand(1..31), 0, 0, 0),
-			              account_timeout: Time.new(Time.now.year, 01, 01, 0, rand(60), 0))
+			              account_timeout: Time.new(Time.now.year, 01, 01, 0, rand(60), 0),
+			              comp_rate: i)
 		end
 
 		ReactQueryBuilder::QbSavedQuery.destroy_all
