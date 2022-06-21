@@ -15,6 +15,10 @@ module ReactQueryBuilder
       params[:action] == "edit"
     end
 
+    def edited_existing_report?
+      params[:action] == "update"
+    end
+
     def existing_report?
       existing_report_columns.count > 0
     end
@@ -78,6 +82,8 @@ module ReactQueryBuilder
     def selected
       if edit_query?
         edit_query_columns
+      elsif edited_existing_report?
+        select_posted_columns
       elsif existing_report?
         existing_report_columns
       elsif new_query?
