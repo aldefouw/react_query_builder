@@ -33,20 +33,37 @@ class NewQueryTable extends React.Component {
 
             let cellExtensions = {}
 
+            //Filtering on Date / Time
             if ( col.type === "datetime" ) {
                 cellExtensions = {
                     Cell: row => { return this.match_date_time.return_row(row.value) },
                     filterMethod: (filter, row) => { return this.match_date_time.filter(filter.value, row[filter.id]) }
                 }
+
+            //Filtering on Date
             } else if ( col.type === "date" ) {
                 cellExtensions = {
                     Cell: row => { return this.match_date.return_row(row.value) },
                     filterMethod: (filter, row) => { return this.match_date.filter(filter.value, row[filter.id]) }
                 }
+
+            //Filtering on Time
             } else if ( col.type === "time" ) {
                 cellExtensions = {
                     Cell: row => { return this.match_time.return_row(row.value) },
                     filterMethod: (filter, row) => { return this.match_time.filter(filter.value, row[filter.id]) }
+                }
+
+            //Sort adjusting to be based upon Numeric sort style if decimal, integer, bigint
+            } else if ( col.type === "decimal" || col.type === "integer" || col.type === "bigint" || col.type === "float" ){
+                cellExtensions = {
+                    sortMethod: (a, b) => Number(a)-Number(b)
+                }
+
+            //For numeric entries, let's parse as a float first
+            } else if ( col.type === "numeric" ){
+                cellExtensions = {
+                    sortMethod: (a, b) => parseFloat(a)-parseFloat(b)
                 }
             }
 

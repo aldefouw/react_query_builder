@@ -14,7 +14,7 @@ module ReactQueryBuilder
 
 		def self.type_overrides
 			{
-				:account_timeout => :decimal
+				:account_timeout => :numeric
 			}
 		end
 
