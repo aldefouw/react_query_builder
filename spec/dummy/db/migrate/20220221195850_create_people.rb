@@ -16,6 +16,8 @@ class CreatePeople < ActiveRecord::Migration[6.1]
 
       t.integer :status
 
+      t.decimal :comp_rate
+
       t.timestamps
     end
   end

@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
     t.time "account_timeout"
     t.datetime "hire_date"
     t.integer "status"
+    t.decimal "comp_rate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -56,7 +57,8 @@ ActiveRecord::Schema.define(version: 2022_02_21_195955) do
          people.trained,
          people.account_timeout,
          people.hire_date,
-         people.status
+         people.status,
+         people.comp_rate
   FROM people
   SQL
 end

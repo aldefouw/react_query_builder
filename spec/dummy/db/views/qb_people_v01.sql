@@ -7,5 +7,6 @@ SELECT people.id,
        people.trained,
        people.account_timeout,
        people.hire_date,
-       people.status
+       people.status,
+       people.comp_rate
 FROM people;
