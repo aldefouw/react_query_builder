@@ -37,7 +37,11 @@ module ReactQueryBuilder
     end
 
     def update
-      save_report
+      if params[:commit].present? && params[:commit].include?("Run Query")
+        query_report(type: __method__)
+      else
+        save_report
+      end
     end
 
     def show
